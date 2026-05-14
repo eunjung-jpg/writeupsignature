@@ -668,7 +668,46 @@ footer {
   .cta-contact { padding: 32px 24px; }
   #hero::after { display: none; }
   .nav-link { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
 }
+
+/* ── HAMBURGER ── */
+.hamburger {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 36px; height: 36px; background: none; border: none; cursor: pointer; padding: 4px;
+}
+.hamburger span {
+  display: block; width: 20px; height: 1.5px; background: var(--white);
+  transition: transform .25s, opacity .2s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mob-menu {
+  display: none; position: fixed; top: 58px; left: 0; right: 0; bottom: 0; z-index: 499;
+  background: rgba(7,9,12,.97); flex-direction: column;
+  padding: 28px var(--ph) 40px; border-top: 1px solid var(--divider);
+  overflow-y: auto;
+}
+.mob-menu.open { display: flex; }
+.mob-link {
+  font-family: var(--label); font-size: 11px; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,.45); padding: 18px 0;
+  border-bottom: 1px solid rgba(201,168,76,.08);
+  display: block; transition: color .2s;
+}
+.mob-link:hover { color: var(--white); }
+.mob-link--reading { color: rgba(201,168,76,.75); }
+.mob-link--reading:hover { color: var(--gold); }
+.mob-cta {
+  margin-top: 32px; font-family: var(--sans-ko); font-size: 14px; font-weight: 700;
+  background: var(--gold); color: var(--black); padding: 16px 24px;
+  border: none; cursor: pointer; text-align: center; transition: background .2s; display: block;
+}
+.mob-cta:hover { background: var(--gold-l); }
 </style>
 </head>
 <body>
@@ -685,9 +724,21 @@ footer {
       <a href="#grades" class="nav-link">Levels</a>
       <a href="/reading" class="nav-link" style="color:rgba(201,168,76,.5)">Reading Intensive</a>
       <a href="#cta" class="nav-cta">문의하기</a>
+      <button class="hamburger" id="ham" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
+
+<div class="mob-menu" id="mob-menu">
+  <a href="#methodology" class="mob-link">Program</a>
+  <a href="#grades" class="mob-link">Levels</a>
+  <a href="#schedule" class="mob-link">Schedule</a>
+  <a href="#faq" class="mob-link">FAQ</a>
+  <a href="/reading" class="mob-link mob-link--reading">→ Reading Intensive</a>
+  <button class="mob-cta" onclick="closeMob();openSMS()">문의하기</button>
+</div>
 
 <!-- ════════════ §1 HERO ════════════ -->
 <section id="hero">
@@ -1211,6 +1262,21 @@ function showG(id, btn) {
   document.getElementById('gp-' + id).classList.add('on');
   btn.classList.add('on');
 }
+
+/* ── Hamburger menu ── */
+const ham = document.getElementById('ham');
+const mobMenu = document.getElementById('mob-menu');
+function closeMob() {
+  ham.classList.remove('open');
+  mobMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}
+ham.addEventListener('click', () => {
+  const isOpen = mobMenu.classList.toggle('open');
+  ham.classList.toggle('open');
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+mobMenu.querySelectorAll('.mob-link').forEach(a => a.addEventListener('click', closeMob));
 
 /* ── Nav border on scroll ── */
 const navEl = document.querySelector('nav');
