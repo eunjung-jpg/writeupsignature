@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Structured Reading Intensive — WriteUp Signature · Summer 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+/* ─── TOKENS ─────────────────────────────── */
+:root {
+  --black:  #07090c;
+  --deep:   #0d1117;
+  --navy:   #141b27;
+  --navy-2: #1b2638;
+  --gold:   #c9a84c;
+  --gold-l: #dbb96a;
+  --red:    #c94b2c;
+  --red-l:  #de6245;
+  --cream:  #faf8f4;
+  --mist:   #f2ede5;
+  --white:  #ffffff;
+  --stone:  #7a7060;
+  --ink:    #1a1a2e;
+
+  --serif:  'Playfair Display', Georgia, serif;
+  --serif-ko: 'Noto Serif KR', Georgia, serif;
+  --sans:   'Noto Sans KR', system-ui, sans-serif;
+  --label:  'Montserrat', system-ui, sans-serif;
+
+  --mw: 1060px;
+  --ph: clamp(24px, 5vw, 56px);
+  --s:  clamp(88px, 12vw, 144px);
+  --sm: clamp(60px, 8vw, 96px);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  font-size: 16px; line-height: 1.8;
+  color: var(--ink); background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all; overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+.w { max-width: var(--mw); margin: 0 auto; padding: 0 var(--ph); }
+
+/* ─── SECTIONS ───────────────────────────── */
+.dark  { background: var(--black); color: var(--white); }
+.navy  { background: var(--navy);  color: var(--white); }
+.navy2 { background: var(--navy-2);color: var(--white); }
+.cream { background: var(--cream); }
+.mist  { background: var(--mist);  }
+.white { background: var(--white); }
+
+/* ─── TYPOGRAPHY ─────────────────────────── */
+.eye {
+  font-family: var(--label); font-size: 10px; font-weight: 700;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--red); display: block; margin-bottom: 20px;
+}
+.eye--gold { color: var(--gold); }
+.eye--dim  { color: rgba(201,75,44,.55); }
+
+.h1 {
+  font-family: var(--serif);
+  font-size: clamp(44px, 7vw, 90px);
+  font-weight: 900; line-height: 1.06; letter-spacing: -.02em;
+}
+.h2 {
+  font-family: var(--serif-ko);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 700; line-height: 1.18; letter-spacing: -.015em;
+}
+.h2-en {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3.8vw, 48px);
+  font-weight: 700; line-height: 1.18; letter-spacing: -.01em;
+}
+.cap {
+  font-size: clamp(14px, 1.3vw, 16px); line-height: 1.9;
+}
+
+/* ─── REVEAL ─────────────────────────────── */
+.r {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .68s cubic-bezier(.22,1,.36,1),
+              transform .68s cubic-bezier(.22,1,.36,1);
+}
+.r.on { opacity: 1; transform: none; }
+.d1 { transition-delay: .10s; }
+.d2 { transition-delay: .20s; }
+.d3 { transition-delay: .32s; }
+.d4 { transition-delay: .44s; }
+
+/* ─── NAV ────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  background: rgba(7,9,12,.93);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid rgba(201,168,76,.14);
+  transition: border-color .3s;
+}
+.nav-w {
+  max-width: var(--mw); margin: 0 auto; padding: 0 var(--ph);
+  height: 58px; display: flex; align-items: center; justify-content: space-between;
+}
+.brand { display: flex; flex-direction: column; gap: 1px; }
+.brand-main {
+  font-family: var(--label); font-size: 13px; font-weight: 700;
+  letter-spacing: .05em; color: var(--white);
+}
+.brand-sub {
+  font-family: var(--label); font-size: 9px; font-weight: 600;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--red);
+}
+.nav-r { display: flex; align-items: center; gap: 24px; }
+.nav-a {
+  font-family: var(--label); font-size: 10px; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.38); transition: color .2s;
+}
+.nav-a:hover { color: rgba(255,255,255,.8); }
+.nav-a--back::before { content: '← '; }
+.nav-btn {
+  font-family: var(--sans); font-size: 12px; font-weight: 700;
+  background: var(--red); color: var(--white);
+  padding: 9px 20px; border: none; cursor: pointer;
+  transition: background .2s;
+}
+.nav-btn:hover { background: var(--red-l); }
+
+/* ══════════════════════════════════════════
+   §1  HERO
+══════════════════════════════════════════ */
+#hero {
+  min-height: 100svh; display: flex; align-items: center;
+  background: var(--black); color: var(--white);
+  padding-top: 58px; position: relative; overflow: hidden;
+}
+#hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 62% 35%, rgba(201,75,44,.07) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 70% at 5% 75%, rgba(20,27,39,.9) 0%, transparent 55%);
+}
+#hero::after {
+  content: 'SUMMER 2026';
+  position: absolute; right: var(--ph); top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: var(--label); font-size: 8px; font-weight: 700;
+  letter-spacing: .4em; text-transform: uppercase;
+  color: rgba(201,75,44,.15); pointer-events: none; white-space: nowrap;
+}
+.hero-body {
+  position: relative; z-index: 1;
+  max-width: var(--mw); margin: 0 auto; padding: 0 var(--ph);
+}
+.hero-kicker {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 36px;
+}
+.hero-kicker::before {
+  content: ''; width: 36px; height: 1px; background: var(--red); display: block;
+}
+.hero-kicker span {
+  font-family: var(--label); font-size: 10px; font-weight: 700;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--red);
+}
+.hero-h {
+  max-width: 740px; margin-bottom: 32px;
+}
+.hero-h em {
+  font-style: italic;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text; background-clip: text;
+  background-image: linear-gradient(100deg, var(--red) 0%, var(--red-l) 60%);
+}
+.hero-sub-en {
+  font-family: var(--serif); font-size: clamp(14px,1.4vw,18px);
+  font-style: italic; font-weight: 400;
+  color: rgba(255,255,255,.35); margin-bottom: 52px; display: block;
+  letter-spacing: .01em;
+}
+/* The four verbs */
+.hero-verbs {
+  display: flex; gap: 0; margin-bottom: 52px; flex-wrap: wrap;
+}
+.verb {
+  font-family: var(--label); font-size: clamp(13px,1.4vw,16px); font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,.55); padding-right: 28px; position: relative;
+  line-height: 1;
+  transition: color .2s;
+}
+.verb::after {
+  content: '·'; position: absolute; right: 10px;
+  color: rgba(201,75,44,.4);
+}
+.verb:last-child::after { display: none; }
+.verb:hover { color: var(--white); }
+
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+.btn {
+  font-family: var(--sans); font-size: 13px; font-weight: 700;
+  padding: 14px 32px; border: none; cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+  letter-spacing: .02em; display: inline-block;
+}
+.btn-red  { background: var(--red); color: var(--white); }
+.btn-red:hover { background: var(--red-l); }
+.btn-ghost {
+  background: transparent; color: rgba(255,255,255,.5);
+  border: 1px solid rgba(255,255,255,.15); padding: 13px 28px;
+}
+.btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,.4); }
+.hero-note {
+  font-family: var(--label); font-size: 10px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.2); margin-top: 28px; display: block;
+}
+
+/* ══════════════════════════════════════════
+   §2  POSITIONING STATEMENT  (cream)
+══════════════════════════════════════════ */
+#position {
+  background: var(--cream);
+  padding: var(--sm) 0;
+}
+.pos-center { text-align: center; max-width: 680px; margin: 0 auto; }
+.pos-line {
+  font-family: var(--serif); font-size: clamp(22px,3.2vw,42px);
+  font-weight: 700; font-style: italic;
+  color: var(--ink); line-height: 1.3; margin-bottom: 28px;
+}
+.pos-ko {
+  font-size: clamp(14px,1.3vw,17px);
+  color: var(--stone); line-height: 1.95;
+}
+.pos-ko strong { color: var(--ink); font-weight: 700; }
+.pos-divider {
+  width: 40px; height: 1.5px; background: var(--red);
+  margin: 28px auto;
+}
+
+/* ══════════════════════════════════════════
+   §3  PROBLEM  (white)
+══════════════════════════════════════════ */
+#problem { background: var(--white); padding: var(--s) 0; }
+.problem-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+.prob-left {}
+.prob-intro {
+  font-size: clamp(14px,1.3vw,16px);
+  color: var(--stone); line-height: 1.95;
+  margin-top: 22px; max-width: 400px;
+}
+.prob-right { padding-top: 8px; }
+.prob-list { list-style: none; }
+.prob-item {
+  display: flex; gap: 20px; align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.prob-item:first-child { border-top: 1px solid rgba(0,0,0,.06); }
+.prob-idx {
+  font-family: var(--label); font-size: 10px; font-weight: 700;
+  letter-spacing: .16em; color: rgba(201,75,44,.45);
+  flex-shrink: 0; padding-top: 2px;
+}
+.prob-text {
+  font-size: 14px; color: #3a3530; line-height: 1.7;
+}
+.prob-text strong { color: var(--ink); font-weight: 700; }
+
+/* ══════════════════════════════════════════
+   §4  DIFFERENT  (navy / dark)
+══════════════════════════════════════════ */
+#different { padding: var(--s) 0; }
+.diff-cols {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2px; margin-top: 52px;
+}
+.diff-col { padding: 44px 40px; }
+.diff-col--old {
+  background: rgba(255,255,255,.025);
+  border-top: 2px solid rgba(255,255,255,.07);
+}
+.diff-col--new {
+  background: rgba(201,75,44,.055);
+  border-top: 2px solid var(--red);
+}
+.diff-col-label {
+  font-family: var(--label); font-size: 9px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  display: block; margin-bottom: 26px;
+}
+.diff-col--old .diff-col-label { color: rgba(255,255,255,.22); }
+.diff-col--new .diff-col-label { color: var(--red); }
+.diff-list { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+.diff-list li {
+  font-size: 13.5px; line-height: 1.65;
+  padding-left: 20px; position: relative;
+}
+.diff-col--old .diff-list li { color: rgba(255,255,255,.38); }
+.diff-col--old .diff-list li::before {
+  content: '—'; position: absolute; left: 0; color: rgba(255,255,255,.16);
+}
+.diff-col--new .diff-list li { color: rgba(255,255,255,.88); }
+.diff-col--new .diff-list li::before {
+  content: '→'; position: absolute; left: 0; color: var(--red);
+}
+
+/* ══════════════════════════════════════════
+   §5  CORE TRAINING  (white / cream)
+══════════════════════════════════════════ */
+#training { background: var(--white); padding: var(--s) 0; }
+.training-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2px; margin-top: 52px; background: var(--mist);
+}
+.tc {
+  background: var(--white); padding: 44px 36px;
+  position: relative; overflow: hidden;
+  border-top: 2px solid transparent;
+  transition: border-color .2s;
+  display: flex; flex-direction: column;
+}
+.tc:hover { border-top-color: var(--red); }
+.tc-num {
+  font-family: var(--label); font-size: 9px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: rgba(201,75,44,.45); margin-bottom: 20px; display: block;
+}
+.tc-name {
+  font-family: var(--label); font-size: 17px; font-weight: 700;
+  font-style: normal; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink); line-height: 1.35; margin-bottom: 10px;
+}
+.tc-ko {
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
+  color: var(--red); letter-spacing: .04em;
+  margin-bottom: 22px; display: block;
+}
+.tc-bullets { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-top: auto; padding-top: 8px; }
+.tc-bullets li {
+  font-size: 13px; color: var(--stone); line-height: 1.6;
+  padding-left: 16px; position: relative;
+}
+.tc-bullets li::before {
+  content: ''; position: absolute; left: 0; top: 8px;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(201,75,44,.35);
+}
+
+/* ══════════════════════════════════════════
+   §6  READING FOR WRITING  (dark)
+══════════════════════════════════════════ */
+#rfwr { padding: var(--s) 0; }
+.rfwr-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+.rfwr-left {}
+.rfwr-lead {
+  font-size: clamp(14px,1.3vw,16px); color: rgba(255,255,255,.5);
+  line-height: 1.95; margin-top: 24px; margin-bottom: 44px; max-width: 420px;
+}
+.rfwr-lead strong { color: rgba(255,255,255,.85); font-weight: 600; }
+
+/* Chain */
+.chain {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+}
+.chain-step {
+  padding: 22px 16px; text-align: center;
+  background: rgba(255,255,255,.03);
+  border-top: 1px solid rgba(201,75,44,.2);
+  transition: background .2s;
+}
+.chain-step:hover { background: rgba(201,75,44,.06); }
+.chain-en {
+  font-family: var(--label); font-size: 10px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--white); display: block; margin-bottom: 5px;
+}
+.chain-ko {
+  font-size: 11px; color: rgba(255,255,255,.35); line-height: 1.5;
+}
+
+/* Ecosystem */
+.rfwr-right {}
+.eco { display: flex; flex-direction: column; border: 1px solid rgba(201,75,44,.18); }
+.eco-row {
+  padding: 20px 24px; border-bottom: 1px solid rgba(201,75,44,.1);
+  display: flex; align-items: center; gap: 14px;
+  transition: background .2s;
+}
+.eco-row:last-child { border-bottom: none; }
+.eco-row:hover { background: rgba(201,75,44,.04); }
+.eco-row.cur { background: rgba(201,75,44,.06); }
+.eco-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(201,75,44,.25); flex-shrink: 0;
+}
+.eco-row.cur .eco-dot { background: var(--red); }
+.eco-title {
+  font-family: var(--label); font-size: 10px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.35); flex: 1;
+}
+.eco-row.cur .eco-title { color: var(--white); }
+.eco-desc {
+  font-size: 11.5px; color: rgba(255,255,255,.25); line-height: 1.5; margin-top: 2px;
+}
+.eco-row.cur .eco-desc { color: rgba(255,255,255,.5); }
+.eco-badge {
+  font-family: var(--label); font-size: 8px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--red); border: 1px solid rgba(201,75,44,.35);
+  padding: 3px 9px; flex-shrink: 0;
+}
+.eco-block { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+
+/* ══════════════════════════════════════════
+   §7  REGULAR VS INTENSIVE  (mist / light)
+══════════════════════════════════════════ */
+#compare { background: var(--mist); padding: var(--s) 0; }
+.cmp-cols {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2px; margin-top: 48px; background: rgba(0,0,0,.04);
+}
+.cmp-col { padding: 44px 40px; }
+.cmp-col--reg { background: var(--white); border-top: 2px solid rgba(0,0,0,.08); }
+.cmp-col--int { background: var(--white); border-top: 2px solid var(--red); }
+.cmp-label {
+  font-family: var(--label); font-size: 9px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  display: block; margin-bottom: 6px;
+}
+.cmp-col--reg .cmp-label { color: var(--stone); }
+.cmp-col--int .cmp-label { color: var(--red); }
+.cmp-sublabel {
+  font-size: 12px; color: #b0a898; margin-bottom: 26px; display: block;
+}
+.cmp-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.cmp-list li {
+  font-size: 13.5px; color: #4a4540; line-height: 1.65;
+  padding-left: 20px; position: relative;
+}
+.cmp-col--reg .cmp-list li::before {
+  content: '·'; position: absolute; left: 3px; color: #c5beb5; font-size: 18px; line-height: 1.2;
+}
+.cmp-col--int .cmp-list li { color: var(--ink); font-weight: 500; }
+.cmp-col--int .cmp-list li::before {
+  content: '→'; position: absolute; left: 0; color: var(--red); font-size: 12px; line-height: 1.65;
+}
+.cmp-note {
+  margin-top: 44px; padding: 24px 28px;
+  background: var(--white);
+  border-left: 2px solid rgba(201,75,44,.3);
+}
+.cmp-note p {
+  font-size: 13.5px; color: var(--stone); line-height: 1.9;
+}
+.cmp-note strong { color: var(--ink); font-weight: 700; }
+
+/* ══════════════════════════════════════════
+   §8  STUDENT ACTION  (white)
+══════════════════════════════════════════ */
+#action { background: var(--white); padding: var(--s) 0; }
+.action-head { max-width: 640px; margin-bottom: 56px; }
+.action-en {
+  font-family: var(--serif); font-size: clamp(13px,1.3vw,15px);
+  font-style: italic; color: var(--stone);
+  margin-top: 12px; display: block;
+}
+.action-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--mist);
+}
+.ac {
+  background: var(--white); padding: 36px 30px;
+  display: flex; gap: 20px; align-items: flex-start;
+  border-top: 2px solid transparent;
+  transition: background .2s, border-color .2s;
+}
+.ac:hover { background: #fdfcfa; border-top-color: var(--red); }
+.ac-n {
+  font-family: var(--label); font-size: 9px; font-weight: 700;
+  letter-spacing: .2em; color: rgba(201,75,44,.38);
+  flex-shrink: 0; padding-top: 3px; min-width: 22px;
+}
+.ac-t { font-size: 13px; color: var(--ink); line-height: 1.6; }
+.ac-t strong { font-weight: 700; }
+
+/* ══════════════════════════════════════════
+   §9  GRADE BANDS  (navy2 / dark)
+══════════════════════════════════════════ */
+#bands { padding: var(--s) 0; }
+.bands-intro {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 72px; align-items: start; margin-bottom: 56px;
+}
+.bi-left {}
+.bi-body {
+  font-size: clamp(13.5px,1.3vw,15.5px);
+  color: rgba(255,255,255,.48); line-height: 1.95;
+  margin-top: 20px; max-width: 400px;
+}
+.bi-body strong { color: rgba(255,255,255,.82); font-weight: 600; }
+.bi-right {
+  padding: 28px 32px;
+  border: 1px solid rgba(201,75,44,.2);
+  background: rgba(201,75,44,.03);
+}
+.bi-quote {
+  font-family: var(--serif); font-size: clamp(13.5px,1.3vw,16px);
+  font-style: italic; color: rgba(255,255,255,.55); line-height: 1.85;
+}
+.bi-quote strong { font-style: normal; color: rgba(255,255,255,.85); }
+
+.band-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+}
+.bc {
+  padding: 44px 32px;
+  background: rgba(255,255,255,.025);
+  border-top: 2px solid rgba(201,75,44,.2);
+  transition: border-color .2s, background .2s;
+}
+.bc:hover { border-top-color: var(--red); background: rgba(201,75,44,.04); }
+.bc-grade {
+  font-family: var(--label); font-size: 10px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 16px; display: block;
+}
+.bc-title {
+  font-family: var(--serif-ko); font-size: clamp(17px,1.8vw,20px);
+  font-weight: 700; color: var(--white);
+  line-height: 1.35; margin-bottom: 8px;
+}
+.bc-stage {
+  font-family: var(--serif); font-size: 12.5px; font-style: italic;
+  color: rgba(201,75,44,.55); margin-bottom: 22px; display: block;
+}
+.bc-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.bc-list li {
+  font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.65;
+  padding-left: 15px; position: relative;
+}
+.bc-list li::before {
+  content: ''; position: absolute; left: 0; top: 8px;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: rgba(201,75,44,.35);
+}
+
+/* ══════════════════════════════════════════
+   §10  FINAL STATEMENT  (cream)
+══════════════════════════════════════════ */
+#final { background: var(--cream); padding: var(--sm) 0; text-align: center; }
+.final-h {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(22px, 3.5vw, 46px); font-weight: 700;
+  color: var(--ink); max-width: 660px; margin: 0 auto 16px;
+  line-height: 1.2;
+}
+.final-sub {
+  font-family: var(--serif); font-size: clamp(12px,1.2vw,15px);
+  font-style: italic; color: var(--stone); margin-bottom: 36px; display: block;
+}
+.final-ko {
+  font-size: 14px; color: var(--stone); line-height: 1.95;
+  max-width: 520px; margin: 0 auto 44px;
+}
+.final-ko strong { color: var(--ink); font-weight: 700; }
+
+/* ══════════════════════════════════════════
+   §11  CTA  (black / dark)
+══════════════════════════════════════════ */
+#cta { background: var(--black); padding: var(--s) 0; }
+.cta-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+.cta-h {
+  font-family: var(--serif-ko); font-size: clamp(24px,3.8vw,46px);
+  font-weight: 700; line-height: 1.22; letter-spacing: -.012em;
+  margin-bottom: 20px; color: var(--white);
+}
+.cta-h em { font-style: normal; color: var(--red); }
+.cta-body {
+  font-size: 14px; color: rgba(255,255,255,.45);
+  line-height: 1.95; margin-bottom: 32px; max-width: 420px;
+}
+.cta-pts { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+.cta-pts li {
+  font-size: 13.5px; color: rgba(255,255,255,.7);
+  padding-left: 20px; position: relative; line-height: 1.65;
+}
+.cta-pts li::before {
+  content: '→'; position: absolute; left: 0; color: var(--red); font-size: 11px; top: 3px;
+}
+.cta-urgency {
+  font-family: var(--label); font-size: 10px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--red);
+}
+.contact-box { background: var(--navy-2); padding: 40px 36px; }
+.contact-title {
+  font-family: var(--serif-ko); font-size: 19px; font-weight: 700;
+  color: var(--white); margin-bottom: 6px;
+}
+.contact-sub {
+  font-size: 12.5px; color: rgba(255,255,255,.32); margin-bottom: 32px; line-height: 1.7;
+}
+.contact-stack { display: flex; flex-direction: column; gap: 10px; }
+.cbtn {
+  display: flex; align-items: center; gap: 14px;
+  padding: 17px 20px; border: none; cursor: pointer;
+  font-family: var(--sans); font-size: 13.5px; font-weight: 700;
+  transition: opacity .2s, background .2s; width: 100%;
+}
+.cbtn--sm {
+  background: transparent; color: rgba(255,255,255,.55);
+  border: 1px solid rgba(255,255,255,.07); font-size: 12.5px; font-weight: 500;
+}
+.cbtn--sm:hover { background: rgba(255,255,255,.05); }
+.cbtn-ico { font-size: 17px; flex-shrink: 0; }
+.cbtn-txt { display: flex; flex-direction: column; gap: 1px; }
+.cbtn-main { font-weight: 700; }
+.cbtn-sub {
+  font-size: 10.5px; font-weight: 400; opacity: .55;
+  font-family: var(--label); letter-spacing: .06em;
+}
+.contact-note {
+  text-align: center; font-size: 11px;
+  color: rgba(255,255,255,.18); font-family: var(--label);
+  letter-spacing: .08em; margin-top: 18px; line-height: 1.75;
+}
+
+/* ─── FOOTER ────────────────────────────── */
+footer {
+  background: var(--black);
+  border-top: 1px solid rgba(201,75,44,.1);
+  padding: 40px var(--ph); text-align: center;
+}
+.ft-brand {
+  font-family: var(--label); font-size: 13px; font-weight: 700;
+  letter-spacing: .05em; color: var(--white); margin-bottom: 5px;
+}
+.ft-sub {
+  font-family: var(--label); font-size: 9px; font-weight: 600;
+  letter-spacing: .24em; text-transform: uppercase; color: rgba(201,75,44,.42);
+  margin-bottom: 18px;
+}
+.ft-nav { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-bottom: 20px; }
+.ft-link {
+  font-family: var(--label); font-size: 10px; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.22); transition: color .2s;
+}
+.ft-link:hover { color: rgba(255,255,255,.6); }
+.ft-meta {
+  font-family: var(--label); font-size: 10px; letter-spacing: .1em;
+  color: rgba(255,255,255,.14);
+}
+.ft-meta span { color: rgba(201,75,44,.28); margin: 0 8px; }
+.ft-copy {
+  margin-top: 22px; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.04);
+  font-family: var(--label); font-size: 10px; letter-spacing: .05em;
+  line-height: 1.9; color: rgba(255,255,255,.15);
+}
+
+/* ─── MOBILE ─────────────────────────────── */
+@media (max-width: 820px) {
+  .problem-layout { grid-template-columns: 1fr; gap: 44px; }
+  .diff-cols       { grid-template-columns: 1fr; }
+  .rfwr-layout     { grid-template-columns: 1fr; gap: 52px; }
+  .bands-intro     { grid-template-columns: 1fr; gap: 32px; }
+  .band-grid       { grid-template-columns: 1fr; }
+  .cta-layout      { grid-template-columns: 1fr; gap: 44px; }
+  .cmp-cols        { grid-template-columns: 1fr; }
+  .chain           { grid-template-columns: repeat(2,1fr); }
+  .action-grid     { grid-template-columns: repeat(2, 1fr); }
+  .training-grid   { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .action-grid     { grid-template-columns: 1fr; }
+  .training-grid   { grid-template-columns: 1fr; }
+  .diff-col        { padding: 32px 24px; }
+  .cmp-col         { padding: 30px 22px; }
+  .contact-box     { padding: 30px 22px; }
+  .hero-verbs      { gap: 4px; }
+  #hero::after     { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-w">
+    <div class="brand">
+      <span class="brand-main">WriteUp Signature</span>
+      <span class="brand-sub">Structured Reading Intensive</span>
+    </div>
+    <div class="nav-r">
+      <a href="/" class="nav-a nav-a--back">Writing Intensive</a>
+      <a href="#cta" class="nav-btn">프로그램 문의</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ §1 HERO ═══════════════════════════════ -->
+<section id="hero">
+  <div class="hero-body">
+    <div class="hero-kicker r">
+      <span>Structured Reading Intensive · Summer 2026 · Grade 2–7</span>
+    </div>
+    <span class="r d1" style="font-family:var(--label);font-size:clamp(11px,1.1vw,13px);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28);display:block;margin-bottom:18px">WriteUp Signature</span>
+
+    <h1 class="h1 hero-h r d2" style="font-family:var(--serif-ko);font-size:clamp(28px,4.8vw,62px);letter-spacing:-.03em;font-weight:900;line-height:1.18">
+      "무엇을 읽는가"보다<br>
+      <em style="font-style:normal">"어떻게 읽는가"</em>를<br>
+      훈련합니다.
+    </h1>
+    <span class="hero-sub-en r d3">Reading Foundation for Academic Writing</span>
+
+    <div class="hero-verbs r d3">
+      <span class="verb">Chunk</span>
+      <span class="verb">Track</span>
+      <span class="verb">Analyze</span>
+      <span class="verb">Prove</span>
+    </div>
+
+    <div class="hero-actions r d4">
+      <a href="#training" class="btn btn-red">프로그램 보기 →</a>
+      <a href="#cta" class="btn btn-ghost">문의하기</a>
+    </div>
+    <span class="hero-note r d4">학년별 정원 제한 · 소수정예 운영 · Summer 2026</span>
+  </div>
+</section>
+
+<!-- ══ §2 POSITIONING  (cream) ═══════════════ -->
+<section id="position">
+  <div style="background:var(--cream);padding:var(--sm) 0">
+    <div class="w">
+      <div class="pos-center r">
+        <p class="pos-line" style="font-family:var(--serif-ko);font-style:normal;font-size:clamp(20px,2.8vw,36px)">읽는 내용이 문제가 아닙니다.<br>읽는 방식이 핵심입니다.</p>
+        <div class="pos-divider"></div>
+        <p class="pos-ko">
+          학생들은 지문을 읽고 문제를 풉니다.<br>
+          하지만 <strong>어떻게 읽는지</strong> — 긴 문장을 끊어 읽고,<br>
+          글의 흐름을 따라가며, 답의 근거를 찾는 방법은 가르치지 않습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ §3 PROBLEM  (white) ════════════════════ -->
+<section id="problem">
+  <div class="w">
+    <span class="eye r">많은 학생들이 겪는 문제</span>
+    <h2 class="h2 r d1" style="color:var(--ink);max-width:520px">
+      문장은 읽는데,<br>글이 연결되지 않습니다
+    </h2>
+
+    <div class="problem-layout">
+      <div class="prob-left r d1">
+        <p class="prob-intro">
+          단어를 해석하는 데 집중하느라<br>
+          단락의 흐름과 방향 전환 신호를<br>
+          처리하지 못하는 학생들이 많습니다.
+        </p>
+      </div>
+      <div class="prob-right r d2">
+        <ul class="prob-list">
+          <li class="prob-item">
+            <span class="prob-idx">01</span>
+            <span class="prob-text">단어는 아는데 <strong>글의 흐름을 놓치는</strong> 학생</span>
+          </li>
+          <li class="prob-item">
+            <span class="prob-idx">02</span>
+            <span class="prob-text">긴 문장에서 <strong>의미 단위를 나누지 못하는</strong> 학생</span>
+          </li>
+          <li class="prob-item">
+            <span class="prob-idx">03</span>
+            <span class="prob-text">연결어가 나와도 <strong>글 흐름 변화를 놓치는</strong> 학생</span>
+          </li>
+          <li class="prob-item">
+            <span class="prob-idx">04</span>
+            <span class="prob-text">근거 없이 <strong>감으로 답을 고르는</strong> 학생</span>
+          </li>
+          <li class="prob-item">
+            <span class="prob-idx">05</span>
+            <span class="prob-text">읽고 나서 <strong>구조적으로 정리하지 못하는</strong> 학생</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ §4 DIFFERENT  (navy / dark) ═══════════ -->
+<section id="different" class="navy" style="padding:var(--s) 0">
+  <div class="w">
+    <span class="eye r">이 프로그램이 다른 이유</span>
+    <h2 class="h2 r d1" style="color:var(--white);max-width:500px">
+      해석이 아닌,<br>구조 분석 훈련입니다
+    </h2>
+    <p class="r d2" style="font-size:14px;color:rgba(255,255,255,.42);line-height:1.9;max-width:440px;margin-top:16px">
+      글의 구조, 흐름, 근거를 직접 표시하고 처리하며 읽습니다.
+    </p>
+
+    <div class="diff-cols r d3">
+      <div class="diff-col diff-col--old">
+        <span class="diff-col-label">일반 Reading 수업</span>
+        <ul class="diff-list">
+          <li>문장 단위 해석</li>
+          <li>어휘 암기 중심</li>
+          <li>문제 풀고 정답 확인</li>
+          <li>구조 분석 없음</li>
+          <li>다음 지문으로 이동</li>
+        </ul>
+      </div>
+      <div class="diff-col diff-col--new">
+        <span class="diff-col-label">Structured Reading</span>
+        <ul class="diff-list">
+          <li>긴 문장 Chunking — 의미 단위 분리</li>
+          <li>Paragraph flow 직접 추적</li>
+          <li>Transition 논리 구분 훈련</li>
+          <li>Evidence sentence 직접 표시</li>
+          <li>구조 분석 후 답하기</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ §5 CORE TRAINING  (white) ════════════ -->
+<section id="training">
+  <div class="w">
+    <span class="eye r">Core Training System</span>
+    <h2 class="h2 r d1" style="color:var(--ink);max-width:480px">
+      4가지 핵심<br>훈련 방식
+    </h2>
+
+    <div class="training-grid">
+      <div class="tc r">
+        <span class="tc-num">01 — Flow Tracking</span>
+        <div class="tc-name">Flow Tracking</div>
+        <span class="tc-ko">흐름 추적</span>
+        <ul class="tc-bullets">
+          <li>Paragraph별 흐름 변화 직접 표시</li>
+          <li>방향 전환 문장 식별</li>
+          <li>문제 발생 지점 파악</li>
+        </ul>
+      </div>
+      <div class="tc r d1">
+        <span class="tc-num">02 — Transition</span>
+        <div class="tc-name">Transition Understanding</div>
+        <span class="tc-ko">연결어 분석</span>
+        <ul class="tc-bullets">
+          <li>however / therefore / meanwhile 구분</li>
+          <li>반대 / 결과 / 전환 역할 식별</li>
+          <li>글 방향 변화 분석</li>
+        </ul>
+      </div>
+      <div class="tc r d2">
+        <span class="tc-num">03 — Evidence</span>
+        <div class="tc-name">Evidence Finding</div>
+        <span class="tc-ko">근거 찾기</span>
+        <ul class="tc-bullets">
+          <li>본문에서 evidence sentence 직접 표시</li>
+          <li>"왜 이 답이 맞는지" 증명</li>
+          <li>감이 아닌 근거로 답하기</li>
+        </ul>
+      </div>
+      <div class="tc r d3">
+        <span class="tc-num">04 — Processing</span>
+        <div class="tc-name">Reading Structuring</div>
+        <span class="tc-ko">구조 분석</span>
+        <ul class="tc-bullets">
+          <li>글의 구조·흐름·의미 분석 반복</li>
+          <li>단어 해석이 아닌 관계 파악</li>
+          <li>Academic Writing으로 연결</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ §6 READING FOR WRITING  (black/dark) ═ -->
+<section id="rfwr" class="dark">
+  <div class="w">
+    <div class="rfwr-layout">
+      <div class="rfwr-left r">
+        <span class="eye--gold eye">Reading for Writing</span>
+        <h2 class="h2 r d1" style="color:var(--white);max-width:400px;font-size:clamp(24px,3.4vw,44px)">
+          읽기는<br>쓰기의 기초입니다
+        </h2>
+        <p class="rfwr-lead">
+          WriteUp Signature의 모든 과정은<br>
+          <strong>Reading · Vocabulary · Grammar for Writing</strong>을<br>
+          중심으로 설계됩니다.<br>
+          Structured Reading은 그 첫 번째 단계입니다.
+        </p>
+
+        <div class="chain r d2">
+          <div class="chain-step">
+            <span class="chain-en">Reading</span>
+            <span class="chain-ko">구조 분석</span>
+          </div>
+          <div class="chain-step">
+            <span class="chain-en">Thinking</span>
+            <span class="chain-ko">논리적 사고</span>
+          </div>
+          <div class="chain-step">
+            <span class="chain-en">Discussion</span>
+            <span class="chain-ko">근거 표현</span>
+          </div>
+          <div class="chain-step">
+            <span class="chain-en">Writing</span>
+            <span class="chain-ko">Academic 글쓰기</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rfwr-right r d2">
+        <div class="eco">
+          <div class="eco-row cur">
+            <div class="eco-dot"></div>
+            <div class="eco-block">
+              <div class="eco-title">Structured Reading</div>
+              <div class="eco-desc">구조·흐름·근거를 분석하며 읽는 훈련</div>
+            </div>
+            <span class="eco-badge">This Program</span>
+          </div>
+          <div class="eco-row">
+            <div class="eco-dot"></div>
+            <div class="eco-block">
+              <div class="eco-title">Vocabulary for Writing</div>
+              <div class="eco-desc">Academic Writing 어휘 체계 훈련</div>
+            </div>
+          </div>
+          <div class="eco-row">
+            <div class="eco-dot"></div>
+            <div class="eco-block">
+              <div class="eco-title">Grammar for Writing</div>
+              <div class="eco-desc">Writing 목적의 문법 구조 이해</div>
+            </div>
+          </div>
+          <div class="eco-row">
+            <div class="eco-dot"></div>
+            <div class="eco-block">
+              <div class="eco-title">Writing Intensive</div>
+              <div class="eco-desc">Edit · Revise · Rewrite 중심 훈련</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ §7 REGULAR VS INTENSIVE  (mist/light) ═ -->
+<section id="compare">
+  <div class="w">
+    <span class="eye r" style="color:var(--stone)">정규과정과의 차이</span>
+    <h2 class="h2 r d1" style="color:var(--ink);max-width:480px">
+      정규과정과<br>무엇이 다른가요?
+    </h2>
+
+    <div class="cmp-cols r d2">
+      <div class="cmp-col cmp-col--reg">
+        <span class="cmp-label">Regular Academic English</span>
+        <span class="cmp-sublabel">통합 Academic English 발전</span>
+        <ul class="cmp-list">
+          <li>Reading · Thinking · Discussion</li>
+          <li>Text Analysis</li>
+          <li>Writing</li>
+          <li>통합적 academic English 발전</li>
+        </ul>
+      </div>
+      <div class="cmp-col cmp-col--int">
+        <span class="cmp-label">Structured Reading Intensive</span>
+        <span class="cmp-sublabel">Reading Foundation 집중 반복 훈련</span>
+        <ul class="cmp-list">
+          <li>Sentence Chunking</li>
+          <li>Flow Tracking · Transition Analysis</li>
+          <li>Evidence Finding Drills</li>
+          <li>구조적으로 읽는 방법 집중 반복</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cmp-note r d3">
+      <p>
+        정규과정에서도 이 훈련들은 이뤄지지만,
+        <strong>Reading Foundation만 집중 반복하기에는 한계</strong>가 있습니다.
+        이 과정은 그 부분만 따로 꺼내어 집중 훈련합니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ §8 STUDENT ACTION  (white) ════════════ -->
+<section id="action">
+  <div class="w">
+    <div class="action-head r">
+      <span class="eye">학생들이 실제로 하는 것</span>
+      <h2 class="h2" style="color:var(--ink)">단순히 읽지 않습니다</h2>
+      <span class="action-en">표시하고, 추적하고, 분석하고, 증명합니다.</span>
+    </div>
+
+    <div class="action-grid">
+      <div class="ac r">
+        <span class="ac-n">01</span>
+        <span class="ac-t"><strong>긴 문장</strong> — 의미 단위로 Chunking</span>
+      </div>
+      <div class="ac r d1">
+        <span class="ac-n">02</span>
+        <span class="ac-t"><strong>Paragraph 흐름</strong> — 직접 표시하기</span>
+      </div>
+      <div class="ac r d2">
+        <span class="ac-n">03</span>
+        <span class="ac-t"><strong>Transition 역할</strong> — 반대 / 결과 / 전환</span>
+      </div>
+      <div class="ac r d3">
+        <span class="ac-n">04</span>
+        <span class="ac-t"><strong>Evidence sentence</strong> — 본문에서 직접 표시</span>
+      </div>
+      <div class="ac r">
+        <span class="ac-n">05</span>
+        <span class="ac-t"><strong>방향 변화</strong> — 직접 말로 설명하기</span>
+      </div>
+      <div class="ac r d1">
+        <span class="ac-n">06</span>
+        <span class="ac-t"><strong>핵심 내용</strong> — 구조적으로 정리하기</span>
+      </div>
+      <div class="ac r d2">
+        <span class="ac-n">07</span>
+        <span class="ac-t"><strong>답의 근거</strong> — 본문에서 증명하기</span>
+      </div>
+      <div class="ac r d3">
+        <span class="ac-n">08</span>
+        <span class="ac-t"><strong>논리 구조</strong> — 글 전체 요약하기</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ §9 GRADE BANDS  (navy2 / dark) ════════ -->
+<section id="bands" class="navy2">
+  <div class="w">
+    <span class="eye r">Level 별 커리큘럼</span>
+    <h2 class="h2 r d1" style="color:var(--white);max-width:480px">
+      Level 별로 다르게<br>접근합니다.
+    </h2>
+
+    <div class="band-grid">
+      <div class="bc r">
+        <span class="bc-grade">Level 1 · Grade 2–3</span>
+        <div class="bc-title">문장과 구조<br>형성 단계</div>
+        <span class="bc-stage">Sentence & Structure Formation</span>
+        <ul class="bc-list">
+          <li>문장 구성 방식 이해</li>
+          <li>아이디어 확장 훈련</li>
+          <li>Paragraph 구성 방식 파악</li>
+          <li>Reading 기본기 형성</li>
+        </ul>
+      </div>
+      <div class="bc r d1">
+        <span class="bc-grade">Level 2 · Grade 4–5</span>
+        <div class="bc-title">Paragraph 확장 및<br>분석 시작 단계</div>
+        <span class="bc-stage">Paragraph & Expansion Stage</span>
+        <ul class="bc-list">
+          <li>긴 Paragraph 흐름 분석</li>
+          <li>Transition 감지 및 구분</li>
+          <li>설명 관계 파악 능력</li>
+          <li>구조적 독해 기초 완성</li>
+        </ul>
+      </div>
+      <div class="bc r d2">
+        <span class="bc-grade">Level 3 · Grade 6–7</span>
+        <div class="bc-title">Academic 사고력 및<br>분석 단계</div>
+        <span class="bc-stage">Academic Reasoning Stage</span>
+        <ul class="bc-list">
+          <li>Academic 논증 구조 분석</li>
+          <li>Evidence 평가 능력</li>
+          <li>논리 구조 분석 능력</li>
+          <li>Writing으로 연결되는 독해력</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ §10 FINAL STATEMENT  (cream) ══════════ -->
+<section id="final">
+  <div class="w" style="text-align:center">
+    <div class="r">
+      <span class="eye r" style="text-align:center">목표</span>
+      <h2 class="final-h" style="font-family:var(--serif-ko);font-style:normal;font-size:clamp(20px,3.2vw,42px)">목표는 빠르게 읽는 것이 아닙니다.<br>구조를 스스로 분석하며 읽는 능력입니다.</h2>
+      <span class="final-sub">Structured Reading Intensive · WriteUp Signature</span>
+      <p class="final-ko">
+        글의 흐름을 추적하고, 근거를 찾고,<br>
+        <strong>구조를 이해하며 읽는 능력</strong>을 만듭니다.
+      </p>
+      <a href="#cta" class="btn btn-red">프로그램 문의 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ §11 CTA  (black) ═══════════════════════ -->
+<section id="cta">
+  <div class="w">
+    <div class="cta-layout">
+      <div class="r">
+        <span class="eye">Summer 2026 · 소수정예 모집</span>
+        <h2 class="cta-h">
+          구조를 분석하며 읽는<br>
+          <em>Reading Foundation.</em><br>
+          여기서 시작합니다.
+        </h2>
+        <p class="cta-body">
+          단어 해석이 아닙니다.
+          흐름을 이해하고, 근거를 찾고, 구조를 분석하며
+          읽는 방법 자체를 훈련하는 6주 과정입니다.
+        </p>
+        <ul class="cta-pts">
+          <li>Chunking · Flow Tracking · Evidence Finding 집중 훈련</li>
+          <li>Writing과 Academic Discussion으로 이어지는 Foundation</li>
+        </ul>
+        <div class="cta-urgency">학년별 정원 제한 · 선착순 마감 · 조기 마감 가능</div>
+      </div>
+
+      <div class="r d2">
+        <div class="contact-box">
+          <div class="contact-title">프로그램 문의</div>
+          <div class="contact-stack">
+            <button class="cbtn cbtn--sm" onclick="openSMS()">
+              <span class="cbtn-ico">✉️</span>
+              <span class="cbtn-txt">
+                <span class="cbtn-main">문자 상담</span>
+                <span class="cbtn-sub">자녀 이름 + 학교와 학년 + 문의 내용을 문자로 보내주시면 확인 후 연락 드립니다.</span>
+              </span>
+            </button>
+          </div>
+          <p class="contact-note">
+            상담은 무료 입니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-brand">WriteUp Signature</div>
+  <div class="ft-sub">Structured Reading Intensive · Summer 2026</div>
+  <div class="ft-nav">
+    <a href="/" class="ft-link">Writing Intensive</a>
+    <a href="/reading" class="ft-link">Structured Reading</a>
+    <a href="#cta" class="ft-link">Inquiry</a>
+  </div>
+  <div class="ft-meta">
+    Grade 2–7 <span>·</span> 6주 집중 과정 <span>·</span> 소수정예 <span>·</span> 학년별 정원 제한
+  </div>
+  <div class="ft-copy">
+    © 2026 WriteUp Signature. All Rights Reserved.<br><br>
+    All curriculum systems, revision methodologies, lesson structures,
+    and branded materials are proprietary to WriteUp Signature.
+  </div>
+</footer>
+
+<script>
+/* ====================================================
+   📱 문자 상담 번호 설정
+   아래 CONTACT_PHONE 값을 실제 전화번호로 교체하세요.
+   형식 예시: '+821012345678'  (국가코드 +82 포함, 0 제외)
+   ==================================================== */
+const CONTACT_PHONE = '+821087365651'; // 문자 상담 번호
+
+function openSMS() {
+  const body = encodeURIComponent(
+    '안녕하세요.\n[학생 이름 / Grade / 학교]\nStructured Reading Intensive 프로그램 상담 문의드립니다.'
+  );
+  window.location.href = 'sms:' + CONTACT_PHONE + '?body=' + body;
+}
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  navEl.style.borderBottomColor =
+    window.scrollY > 80 ? 'rgba(201,75,44,.3)' : 'rgba(201,168,76,.14)';
+}, { passive: true });
+</script>
+</body>
+</html>

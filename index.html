@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WriteUp Signature — Writing & Editing Intensive · Summer 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+/* ──────────────────────────────────────────────
+   DESIGN TOKENS
+────────────────────────────────────────────── */
+:root {
+  --black:     #07090c;
+  --deep:      #0d1117;
+  --navy:      #141b27;
+  --navy-2:    #1b2638;
+  --navy-3:    #212f44;
+  --gold:      #c9a84c;
+  --gold-l:    #dbb96a;
+  --gold-pale: #f5eedc;
+  --cream:     #faf8f4;
+  --mist:      #f2ede5;
+  --white:     #ffffff;
+  --stone:     #8a8070;
+  --divider:   rgba(201,168,76,.18);
+
+  --serif-ko:  'Noto Serif KR', Georgia, serif;
+  --sans-ko:   'Noto Sans KR', system-ui, sans-serif;
+  --serif-en:  'Playfair Display', Georgia, serif;
+  --label:     'Montserrat', system-ui, sans-serif;
+
+  --mw: 1080px;
+  --ph: clamp(24px, 5vw, 56px);
+}
+
+/* ──────────────────────────────────────────────
+   RESET & BASE
+────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans-ko);
+  font-size: 16px; line-height: 1.85;
+  color: var(--deep); background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all; overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+.w { max-width: var(--mw); margin: 0 auto; padding: 0 var(--ph); }
+
+/* ──────────────────────────────────────────────
+   NAV
+────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  background: rgba(7,9,12,.93);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--divider);
+  transition: border-color .3s;
+}
+.nav-wrap {
+  max-width: var(--mw); margin: 0 auto; padding: 0 var(--ph);
+  height: 58px; display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand {
+  display: flex; flex-direction: column; gap: 1px;
+}
+.nav-brand-main {
+  font-family: var(--label); font-size: 13px; font-weight: 700;
+  letter-spacing: .06em; color: var(--white);
+}
+.nav-brand-sub {
+  font-family: var(--label); font-size: 9px; font-weight: 500;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--gold);
+}
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.nav-link {
+  font-family: var(--label); font-size: 10px; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.45); transition: color .2s;
+}
+.nav-link:hover { color: var(--white); }
+.nav-cta {
+  font-family: var(--sans-ko); font-size: 12px; font-weight: 700;
+  background: var(--gold); color: var(--black);
+  padding: 9px 20px; border: none; cursor: pointer;
+  transition: background .2s; letter-spacing: .02em;
+}
+.nav-cta:hover { background: var(--gold-l); }
+
+/* ──────────────────────────────────────────────
+   SECTION SHELL
+────────────────────────────────────────────── */
+.s { padding: clamp(80px, 11vw, 136px) 0; }
+.s--black  { background: var(--black);  color: var(--white); }
+.s--deep   { background: var(--deep);   color: var(--white); }
+.s--navy   { background: var(--navy);   color: var(--white); }
+.s--navy2  { background: var(--navy-2); color: var(--white); }
+.s--cream  { background: var(--cream); }
+.s--mist   { background: var(--mist);  }
+.s--white  { background: var(--white); }
+
+/* ──────────────────────────────────────────────
+   TYPE SYSTEM
+────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--label); font-size: 10px; font-weight: 700;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--gold); display: block; margin-bottom: 22px;
+}
+.rule { width: 36px; height: 1.5px; background: var(--gold); margin-bottom: 36px; }
+.rule-c { margin-left: auto; margin-right: auto; }
+
+.h1 {
+  font-family: var(--serif-ko);
+  font-size: clamp(30px, 4.8vw, 62px);
+  font-weight: 900; line-height: 1.12; letter-spacing: -.03em;
+}
+.h2 {
+  font-family: var(--serif-ko);
+  font-size: clamp(28px, 4.2vw, 54px);
+  font-weight: 700; line-height: 1.16; letter-spacing: -.018em;
+}
+.h3 {
+  font-family: var(--serif-ko);
+  font-size: clamp(19px, 2.4vw, 28px);
+  font-weight: 700; line-height: 1.3;
+}
+.en-display {
+  font-family: var(--serif-en);
+  font-size: clamp(34px, 5.5vw, 68px);
+  font-weight: 700; font-style: italic;
+  line-height: 1.12; letter-spacing: -.01em;
+}
+
+/* ──────────────────────────────────────────────
+   REVEAL ANIMATION
+────────────────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s cubic-bezier(.22,1,.36,1),
+              transform .7s cubic-bezier(.22,1,.36,1);
+}
+.reveal.on { opacity: 1; transform: none; }
+.d1 { transition-delay: .10s; }
+.d2 { transition-delay: .20s; }
+.d3 { transition-delay: .30s; }
+.d4 { transition-delay: .42s; }
+.d5 { transition-delay: .54s; }
+
+/* ══════════════════════════════════════════════
+   §1  HERO
+══════════════════════════════════════════════ */
+#hero {
+  min-height: 100svh; display: flex; align-items: center;
+  background: var(--black); color: var(--white);
+  padding-top: 58px; position: relative; overflow: hidden;
+}
+#hero::before {
+  content: '';  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 55% at 65% 35%, rgba(201,168,76,.07) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 80% at 10% 75%, rgba(20,27,39,.8) 0%, transparent 55%);
+}
+/* Decorative vertical text */
+#hero::after {
+  content: 'SUMMER 2026';
+  position: absolute; right: var(--ph); top: 50%; transform: translateY(-50%) rotate(90deg);
+  transform-origin: center center;
+  font-family: var(--label); font-size: 9px; font-weight: 700;
+  letter-spacing: .36em; text-transform: uppercase;
+  color: rgba(201,168,76,.2); pointer-events: none;
+  white-space: nowrap;
+}
+.hero-body {
+  position: relative; z-index: 1;
+  max-width: var(--mw); margin: 0 auto; padding: 0 var(--ph);
+}
+.hero-kicker {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 28px;
+}
+.hero-kicker::before {
+  content: ''; display: block; width: 40px; height: 1px; background: var(--gold);
+}
+.hero-kicker span {
+  font-family: var(--label); font-size: 10px; font-weight: 700;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--gold);
+}
+.hero-brand {
+  font-family: var(--label); font-size: clamp(11px,1.2vw,14px); font-weight: 600;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(255,255,255,.35); margin-bottom: 16px; display: block;
+}
+.hero-h { max-width: 820px; }
+.hero-h em {
+  font-style: normal;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text; background-clip: text;
+  background-image: linear-gradient(105deg, var(--gold) 0%, var(--gold-l) 60%);
+}
+.hero-divider {
+  width: 56px; height: 1px; background: var(--divider);
+  margin: 36px 0;
+}
+.hero-sub {
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: rgba(255,255,255,.52); line-height: 2;
+  max-width: 560px; margin-bottom: 44px;
+}
+.hero-tags {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 52px;
+}
+.tag {
+  font-family: var(--label); font-size: 10px; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase;
+  border: 1px solid rgba(201,168,76,.28); color: rgba(201,168,76,.8);
+  padding: 8px 16px; transition: border-color .2s;
+}
+.tag:hover { border-color: var(--gold); color: var(--gold); }
+.hero-actions { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+.btn {
+  font-family: var(--sans-ko); font-size: 13px; font-weight: 700;
+  padding: 15px 34px; border: none; cursor: pointer;
+  transition: background .2s; letter-spacing: .03em;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-gold { background: var(--gold); color: var(--black); }
+.btn-gold:hover { background: var(--gold-l); }
+.btn-outline {
+  background: transparent; color: rgba(255,255,255,.6);
+  border: 1px solid rgba(255,255,255,.18);
+  padding: 14px 28px;
+}
+.btn-outline:hover { color: var(--white); border-color: rgba(255,255,255,.4); }
+.hero-caption {
+  font-family: var(--label); font-size: 10px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+}
+
+/* ══════════════════════════════════════════════
+   §2  POSITIONING — Write · Edit · Improve
+══════════════════════════════════════════════ */
+#position {
+  background: var(--cream);
+  padding: clamp(60px, 8vw, 96px) 0;
+  text-align: center;
+}
+.pos-row {
+  display: flex; justify-content: center; align-items: center;
+  gap: clamp(16px, 3vw, 48px); flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.pos-item { text-align: center; }
+.pos-en {
+  font-family: var(--serif-en);
+  font-size: clamp(30px, 5vw, 64px);
+  font-weight: 700; font-style: italic;
+  color: var(--deep); display: block; line-height: 1;
+}
+.pos-sep {
+  font-family: var(--serif-en);
+  font-size: clamp(24px, 4vw, 52px);
+  color: var(--gold); opacity: .5; line-height: 1;
+  align-self: flex-start; padding-top: 4px;
+}
+.pos-caption {
+  font-family: var(--serif-ko);
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: var(--stone); line-height: 1.95; max-width: 500px; margin: 0 auto;
+}
+.pos-caption strong { color: var(--deep); font-weight: 700; }
+
+/* ══════════════════════════════════════════════
+   §3  METHODOLOGY — 4 PILLARS
+══════════════════════════════════════════════ */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1px; background: rgba(255,255,255,.05);
+  margin-top: 56px;
+}
+.pillar {
+  padding: 48px 36px;
+  background: rgba(255,255,255,.02);
+  transition: background .25s;
+  position: relative; overflow: hidden;
+}
+.pillar::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: transparent;
+  transition: background .25s;
+}
+.pillar:hover { background: rgba(255,255,255,.04); }
+.pillar:hover::before { background: var(--gold); }
+.pillar-idx {
+  font-family: var(--label); font-size: 9px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: rgba(201,168,76,.4); margin-bottom: 24px; display: block;
+}
+.pillar-word {
+  font-family: var(--serif-en); font-size: 28px; font-weight: 700; font-style: italic;
+  color: var(--white); margin-bottom: 16px; line-height: 1;
+}
+.pillar-ko {
+  font-family: var(--serif-ko); font-size: 13.5px; font-weight: 600;
+  color: var(--gold); margin-bottom: 20px; display: block;
+}
+.pillar-body {
+  font-size: 13.5px; color: rgba(255,255,255,.48);
+  line-height: 1.85;
+}
+.pillar-body strong { color: rgba(255,255,255,.75); font-weight: 600; }
+.pillar ul {
+  list-style: none; padding: 0; margin: 14px 0 0;
+  display: flex; flex-direction: column; gap: 7px;
+}
+.pillar ul li {
+  font-size: 13px; color: rgba(255,255,255,.48);
+  padding-left: 16px; position: relative; line-height: 1.65;
+}
+.pillar ul li::before {
+  content: '·'; position: absolute; left: 0; color: var(--gold);
+  font-size: 18px; line-height: 1.2;
+}
+
+/* ══════════════════════════════════════════════
+   §4  COMPARISON — Traditional vs WriteUp
+══════════════════════════════════════════════ */
+.compare-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  margin-top: 52px;
+}
+.compare-col { padding: 48px 44px; }
+.compare-col--old {
+  background: rgba(255,255,255,.02);
+  border-top: 2px solid rgba(255,255,255,.08);
+}
+.compare-col--new {
+  background: rgba(201,168,76,.05);
+  border-top: 2px solid var(--gold);
+}
+.compare-label {
+  font-family: var(--label); font-size: 9px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  display: block; margin-bottom: 28px;
+}
+.compare-col--old .compare-label { color: rgba(255,255,255,.25); }
+.compare-col--new .compare-label { color: var(--gold); }
+.compare-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.compare-list li {
+  font-size: 14px; line-height: 1.75;
+  padding-left: 22px; position: relative;
+}
+.compare-col--old .compare-list li { color: rgba(255,255,255,.38); }
+.compare-col--old .compare-list li::before {
+  content: '—'; position: absolute; left: 0; color: rgba(255,255,255,.18);
+}
+.compare-col--new .compare-list li { color: rgba(255,255,255,.85); }
+.compare-col--new .compare-list li::before {
+  content: '→'; position: absolute; left: 0; color: var(--gold);
+}
+
+/* ══════════════════════════════════════════════
+   §5  WHO — GRADE CARDS
+══════════════════════════════════════════════ */
+.grade-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px; margin-top: 52px;
+}
+.grade-card {
+  padding: 44px 36px; background: var(--white);
+  position: relative; overflow: hidden;
+  border-bottom: 2px solid var(--gold-pale);
+  transition: border-color .2s;
+}
+.grade-card:hover { border-bottom-color: var(--gold); }
+.grade-card::before {
+  content: attr(data-num);
+  position: absolute; right: 24px; top: 24px;
+  font-family: var(--label); font-size: 64px; font-weight: 800;
+  color: rgba(201,168,76,.07); line-height: 1;
+  pointer-events: none;
+}
+.gc-band {
+  font-family: var(--label); font-size: 10px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 18px; display: block;
+}
+.gc-title {
+  font-family: var(--serif-ko); font-size: 19px; font-weight: 700;
+  color: var(--deep); line-height: 1.4; margin-bottom: 18px;
+}
+.gc-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.gc-list li {
+  font-size: 13px; color: var(--stone); line-height: 1.7;
+  padding-left: 16px; position: relative;
+}
+.gc-list li::before {
+  content: '·'; position: absolute; left: 0; color: var(--gold); font-size: 16px;
+  line-height: 1.4;
+}
+
+/* ══════════════════════════════════════════════
+   §6  REVISION FLOW — 6 STEPS
+══════════════════════════════════════════════ */
+.flow-track {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  position: relative;
+}
+.flow-track::before {
+  content: ''; position: absolute;
+  top: 24px; left: 24px; right: 24px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,.3) 15%, rgba(201,168,76,.3) 85%, transparent);
+}
+.flow-item {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 0 8px;
+  position: relative; z-index: 1;
+}
+.flow-num {
+  width: 48px; height: 48px;
+  border: 1px solid rgba(201,168,76,.35);
+  background: var(--navy);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--label); font-size: 11px; font-weight: 700;
+  color: var(--gold); margin-bottom: 18px;
+  transition: background .2s, border-color .2s;
+}
+.flow-item:hover .flow-num {
+  background: rgba(201,168,76,.12);
+  border-color: var(--gold);
+}
+.flow-en {
+  font-family: var(--label); font-size: 10px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--white); margin-bottom: 6px;
+}
+.flow-ko {
+  font-size: 11.5px; color: rgba(255,255,255,.38); line-height: 1.6;
+}
+.flow-quote {
+  margin-top: 64px;
+  padding: 32px 40px;
+  border-left: 2px solid var(--gold);
+  background: rgba(201,168,76,.04);
+  max-width: 660px;
+}
+.flow-quote p {
+  font-family: var(--serif-ko);
+  font-size: clamp(16px, 1.7vw, 20px);
+  color: var(--white); line-height: 1.85; font-weight: 600;
+}
+.flow-quote cite {
+  display: block; margin-top: 16px;
+  font-size: 11px; font-style: normal;
+  color: rgba(255,255,255,.3); font-family: var(--label); letter-spacing: .12em;
+}
+
+
+/* ══════════════════════════════════════════════
+   §8  GRADE TABS — DEEP CURRICULUM
+══════════════════════════════════════════════ */
+.gtab-row {
+  display: flex; gap: 0; border-bottom: 1px solid rgba(201,168,76,.18);
+  margin-top: 52px;
+}
+.gtab {
+  font-family: var(--label); font-size: 10px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  padding: 14px 28px; background: transparent;
+  border: none; cursor: pointer; color: rgba(255,255,255,.35);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+  transition: color .2s, border-color .2s;
+}
+.gtab.on { color: var(--gold); border-bottom-color: var(--gold); }
+.gtab:hover:not(.on) { color: rgba(255,255,255,.65); }
+
+.gpanels { margin-top: 52px; }
+.gpanel { display: none; }
+.gpanel.on {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: start;
+}
+.gp-title {
+  font-family: var(--serif-ko); font-size: clamp(20px, 2.5vw, 30px);
+  font-weight: 700; color: var(--white); line-height: 1.32; margin-bottom: 20px;
+}
+.gp-body {
+  font-size: 14px; color: rgba(255,255,255,.52);
+  line-height: 1.9; margin-bottom: 28px;
+}
+.gp-skills { display: flex; flex-direction: column; gap: 12px; }
+.gp-skill {
+  font-size: 13.5px; color: rgba(255,255,255,.75);
+  padding-left: 20px; position: relative; line-height: 1.65;
+}
+.gp-skill::before {
+  content: ''; position: absolute; left: 0; top: 9px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+}
+.gp-right {
+  padding-left: 48px;
+  border-left: 1px solid rgba(201,168,76,.15);
+}
+.gp-right-label {
+  font-family: var(--label); font-size: 9px; font-weight: 700;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 20px; display: block;
+}
+.gp-goal {
+  font-family: var(--serif-ko);
+  font-size: clamp(16px, 1.6vw, 20px);
+  color: var(--white); font-weight: 600;
+  line-height: 1.7; margin-bottom: 24px;
+}
+.gp-note {
+  font-size: 13px; color: rgba(255,255,255,.38); line-height: 1.85;
+}
+
+/* ══════════════════════════════════════════════
+   §9  PROGRAM DETAILS — minimal grid
+══════════════════════════════════════════════ */
+.details-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2px; margin-top: 52px;
+}
+.detail-item {
+  padding: 40px 32px; background: rgba(255,255,255,.03);
+  text-align: center;
+  transition: background .2s;
+}
+.detail-item:hover { background: rgba(255,255,255,.055); }
+.detail-val {
+  font-family: var(--serif-en);
+  font-size: clamp(32px, 4.5vw, 50px);
+  font-weight: 700; color: var(--gold);
+  line-height: 1; margin-bottom: 12px; font-style: italic;
+}
+.detail-label {
+  font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.7;
+}
+
+/* ══════════════════════════════════════════════
+   §10  CTA — 문자 상담
+══════════════════════════════════════════════ */
+#cta { background: var(--black); color: var(--white); }
+.cta-split {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+.cta-eyebrow { margin-bottom: 16px; }
+.cta-h {
+  font-family: var(--serif-ko);
+  font-size: clamp(26px, 4vw, 50px);
+  font-weight: 700; line-height: 1.2;
+  letter-spacing: -.015em; margin-bottom: 24px;
+}
+.cta-h em { font-style: normal; color: var(--gold); }
+.cta-body {
+  font-size: 14.5px; color: rgba(255,255,255,.48);
+  line-height: 1.95; margin-bottom: 36px; max-width: 440px;
+}
+.cta-points { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 44px; }
+.cta-points li {
+  font-size: 13.5px; color: rgba(255,255,255,.75);
+  padding-left: 22px; position: relative; line-height: 1.7;
+}
+.cta-points li::before {
+  content: '→'; position: absolute; left: 0; color: var(--gold); font-size: 12px; top: 2px;
+}
+.cta-urgency {
+  font-family: var(--label); font-size: 10px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--gold);
+}
+
+/* Contact block */
+.cta-contact { background: var(--navy-2); padding: 44px 40px; }
+.cta-contact-title {
+  font-family: var(--serif-ko); font-size: 20px; font-weight: 700;
+  color: var(--white); margin-bottom: 8px;
+}
+.cta-contact-sub {
+  font-size: 13px; color: rgba(255,255,255,.38);
+  margin-bottom: 36px; line-height: 1.7;
+}
+.contact-options { display: flex; flex-direction: column; gap: 12px; }
+.contact-btn {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 22px; border: none; cursor: pointer;
+  font-family: var(--sans-ko); font-size: 14px; font-weight: 700;
+  transition: opacity .2s; width: 100%; text-align: left;
+}
+.contact-btn--sms {
+  background: rgba(255,255,255,.03); color: rgba(255,255,255,.65);
+  border: 1px solid rgba(255,255,255,.08);
+  font-weight: 600; font-size: 13px;
+}
+.contact-btn--sms:hover { background: rgba(255,255,255,.07); }
+.contact-icon { font-size: 18px; flex-shrink: 0; }
+.contact-btn-text { display: flex; flex-direction: column; gap: 2px; }
+.contact-btn-main { font-weight: 700; }
+.contact-btn-sub {
+  font-size: 11px; font-weight: 400; opacity: .65;
+  font-family: var(--label); letter-spacing: .06em;
+}
+.cta-note {
+  margin-top: 20px; font-size: 11px;
+  color: rgba(255,255,255,.22); font-family: var(--label);
+  letter-spacing: .08em; text-align: center; line-height: 1.8;
+}
+
+/* ──────────────────────────────────────────────
+   FOOTER
+────────────────────────────────────────────── */
+footer {
+  background: var(--black); border-top: 1px solid rgba(201,168,76,.1);
+  padding: 40px var(--ph); text-align: center;
+}
+.footer-brand {
+  font-family: var(--label); font-size: 13px; font-weight: 700;
+  letter-spacing: .06em; color: var(--white); margin-bottom: 8px;
+}
+.footer-sub {
+  font-family: var(--label); font-size: 9px; font-weight: 600;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: rgba(201,168,76,.45);
+}
+.footer-meta {
+  margin-top: 24px; font-size: 11px;
+  color: rgba(255,255,255,.15); font-family: var(--label);
+  letter-spacing: .1em;
+}
+.footer-meta span { color: rgba(201,168,76,.3); margin: 0 8px; }
+.footer-copy {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  font-size: 10.5px; font-family: var(--label);
+  letter-spacing: .06em; line-height: 1.9;
+  color: rgba(255,255,255,.18);
+}
+
+/* ──────────────────────────────────────────────
+   MOBILE
+────────────────────────────────────────────── */
+@media (max-width: 820px) {
+  .compare-grid { grid-template-columns: 1fr; }
+  .gpanel.on { grid-template-columns: 1fr; }
+  .gp-right { border-left: none; padding-left: 0; border-top: 1px solid rgba(201,168,76,.15); padding-top: 32px; }
+  .cta-split { grid-template-columns: 1fr; gap: 44px; }
+  .flow-track { grid-template-columns: repeat(3, 1fr); gap: 32px 0; }
+  .flow-track::before { display: none; }
+}
+@media (max-width: 560px) {
+  .flow-track { grid-template-columns: repeat(2, 1fr); }
+  .gtab { padding: 11px 14px; font-size: 9px; }
+  .compare-col { padding: 32px 24px; }
+  .cta-contact { padding: 32px 24px; }
+  #hero::after { display: none; }
+  .nav-link { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════ NAV ════════════ -->
+<nav>
+  <div class="nav-wrap">
+    <div class="nav-brand">
+      <span class="nav-brand-main">WriteUp Signature</span>
+      <span class="nav-brand-sub">Writing &amp; Editing Intensive</span>
+    </div>
+    <div class="nav-right">
+      <a href="#methodology" class="nav-link">Program</a>
+      <a href="#grades" class="nav-link">Levels</a>
+      <a href="/reading" class="nav-link" style="color:rgba(201,168,76,.5)">Reading Intensive</a>
+      <a href="#cta" class="nav-cta">문의하기</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════ §1 HERO ════════════ -->
+<section id="hero">
+  <div class="hero-body">
+    <div class="hero-kicker reveal">
+      <span>Summer 2026 · Level 1 · 2 · 3 · 6주 intensive program</span>
+    </div>
+    <span class="hero-brand reveal d1">WriteUp Signature — Writing &amp; Editing Intensive</span>
+
+    <h1 class="h1 hero-h reveal d2">
+      Writing을 분석하고<br>
+      <em>edit하는 방법</em>을<br>
+      배웁니다.
+    </h1>
+
+    <div class="hero-divider reveal d3"></div>
+
+    <p class="hero-sub reveal d3">
+      Writing을 분석하고,<br>
+      더 좋은 문장과 흐름으로 발전시키는 방법을 배웁니다.<br>
+      스스로 글을 성장시키는 Edit 능력을<br>
+      체계적으로 훈련합니다.
+    </p>
+
+    <div class="hero-tags reveal d4">
+      <span class="tag">Analyze</span>
+      <span class="tag">Pattern</span>
+      <span class="tag">Edit</span>
+      <span class="tag">Revise</span>
+      <span class="tag">Level 1–3</span>
+      <span class="tag">소수정예</span>
+    </div>
+
+    <div class="hero-actions reveal d4">
+      <a href="#cta" class="btn btn-gold">프로그램 문의 →</a>
+      <a href="#methodology" class="btn btn-outline">어떻게 다른가</a>
+    </div>
+
+    <p class="hero-caption reveal d5" style="margin-top:32px">
+      학년별 정원 제한 · 조기 마감 가능
+    </p>
+  </div>
+</section>
+
+<!-- ════════════ §2 POSITIONING ════════════ -->
+<section id="position" class="s--cream">
+  <div class="w" style="padding-top:clamp(60px,8vw,96px);padding-bottom:clamp(60px,8vw,96px)">
+    <div class="pos-row reveal">
+      <div class="pos-item">
+        <span class="pos-en">Analyze</span>
+      </div>
+      <span class="pos-sep">·</span>
+      <div class="pos-item">
+        <span class="pos-en">Pattern</span>
+      </div>
+      <span class="pos-sep">·</span>
+      <div class="pos-item">
+        <span class="pos-en">Revise</span>
+      </div>
+    </div>
+    <p class="pos-caption reveal d1">
+      한 번 쓰고 끝나는 Writing이 아닙니다.<br>
+      좋은 Essay를 분석하고,<br>
+      좋은 표현과 Pattern을 익히고,<br>
+      스스로 Edit하고 Revise하며 —<br>
+      <strong>Writing을 발전시키는 과정을 훈련합니다.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- ════════════ §3 METHODOLOGY — 4 PILLARS ════════════ -->
+<section id="methodology" class="s s--navy">
+  <div class="w">
+    <span class="eyebrow reveal">왜 지금까지 받았던 Writing 수업은 효과가 없었을까요?</span>
+    <h2 class="h2 reveal d1" style="color:var(--white);max-width:580px">
+      Writing 수업을 해도<br>실력이 늘지 않는 이유
+    </h2>
+
+    <div class="pillars">
+      <div class="pillar reveal">
+        <span class="pillar-idx">01</span>
+        <div class="pillar-word">Edit</div>
+        <span class="pillar-ko">쓰기만 하고, Edit하는 방법을 배우지 않았다</span>
+        <p class="pillar-body">
+          Essay 실력은:<br>
+          <strong>How to Edit,<br>How to Revise</strong>에서 만들어집니다.
+        </p>
+        <p class="pillar-body" style="margin-top:14px">
+          무엇이 약한지,<br>
+          왜 어색한지,<br>
+          어떻게 더 좋은 문장으로 바꾸는지 —<br>
+          배운 적이 없습니다.
+        </p>
+      </div>
+      <div class="pillar reveal d1">
+        <span class="pillar-idx">02</span>
+        <div class="pillar-word">Red Pen</div>
+        <span class="pillar-ko">선생님이 대신 첨삭한다</span>
+        <p class="pillar-body">
+          선생님이 빨간 펜으로 수정하면,<br>
+          학생은 읽어보지도 않습니다.
+        </p>
+        <p class="pillar-body" style="margin-top:14px">
+          결국: <strong>"내 Essay"</strong>가 아니라<br>
+          <strong>"선생님 Essay"</strong>가 됩니다.<br>
+          스스로 Edit하는 능력은 생기지 않습니다.
+        </p>
+      </div>
+      <div class="pillar reveal d2">
+        <span class="pillar-idx">03</span>
+        <div class="pillar-word">Analysis</div>
+        <span class="pillar-ko">구조만 알려주고, 실제 Essay 분석은 하지 않는다</span>
+        <p class="pillar-body">
+          "자! Intro, Body, Conclusion 써봐."<br>
+          하지만 학생들은:<br>
+          무엇을 써야 하는지 모릅니다.
+        </p>
+        <p class="pillar-body" style="margin-top:14px">그래서: 좋은 Essay를 분석해야 합니다.<br>어떤 부분이:</p>
+        <ul>
+          <li>Hook인지</li>
+          <li>Background인지</li>
+          <li>Topic sentence인지</li>
+          <li>Evidence인지</li>
+        </ul>
+        <p class="pillar-body" style="margin-top:14px">
+          직접 분석하며 익혀야,<br>무엇을 써야 하는지 감을 잡게 됩니다.
+        </p>
+      </div>
+      <div class="pillar reveal d3">
+        <span class="pillar-idx">04</span>
+        <div class="pillar-word">Pattern</div>
+        <span class="pillar-ko">실제 예시와 Pattern Writing 훈련이 부족하다</span>
+        <p class="pillar-body">
+          좋은 Essay는:<br>좋은 예시를 반복적으로 보며 배웁니다.
+        </p>
+        <ul>
+          <li>실제 문장을 따라 써보고</li>
+          <li>바꿔 써보고</li>
+          <li>자기 표현을 추가하면서</li>
+        </ul>
+        <p class="pillar-body" style="margin-top:14px">
+          점점 자기 문장으로 만들게 됩니다.<br>
+          하지만 대부분: <strong>"자유롭게 써봐."</strong>에서 끝납니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ §4 COMPARISON ════════════ -->
+<section id="compare" class="s s--deep">
+  <div class="w">
+    <span class="eyebrow reveal">이 프로그램은 무엇이 다른가</span>
+    <h2 class="h2 reveal d1" style="color:var(--white);max-width:520px">
+      "혼자 쓰고,<br>Edit 하는 능력"을 키웁니다.
+    </h2>
+
+    <div class="compare-grid reveal d2">
+      <div class="compare-col compare-col--old">
+        <span class="compare-label">일반 Essay 수업</span>
+        <ul class="compare-list">
+          <li>선생님이 고쳐주는 Essay</li>
+          <li>"자유롭게 써봐" 중심</li>
+          <li>Essay 구조 외우기 중심</li>
+          <li>실제 Essay 분석 부족</li>
+          <li>무엇을 써야 하는지 모름</li>
+          <li>첨삭 없으면 혼자 Edit 못함</li>
+          <li>Pattern 축적 없이 바로 Writing</li>
+        </ul>
+      </div>
+      <div class="compare-col compare-col--new">
+        <span class="compare-label">WriteUp Signature</span>
+        <ul class="compare-list">
+          <li>학생 스스로 Self-Edit 훈련</li>
+          <li>Edit / Revise 방법론 중심</li>
+          <li>Essay Analysis (분석)</li>
+          <li>Hook / Thesis / Evidence 구조 이해</li>
+          <li>Pattern Writing 반복 훈련</li>
+          <li>자기 글의 약점을 스스로 진단</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ §5 WHO ════════════ -->
+<section id="who" class="s s--cream">
+  <div class="w">
+    <span class="eyebrow reveal">이런 학생에게 맞습니다</span>
+    <h2 class="h2 reveal d1" style="color:var(--deep);max-width:620px">
+      LEVEL 별로 다르게<br><em style="font-style:italic;color:var(--gold)">접근합니다.</em>
+    </h2>
+
+    <div class="grade-cards">
+      <div class="grade-card reveal d2" data-num="1">
+        <span class="gc-band">Level 1 · Grade 2–3</span>
+        <div class="gc-title">Essay Writing을<br>제대로 시작하고 싶은 학생</div>
+        <ul class="gc-list">
+          <li>Intro / Body / Conclusion 기초 구조</li>
+          <li>because / but / so 반복 줄이기</li>
+          <li>문장 확장 훈련</li>
+          <li>Pattern Writing으로 자신감 만들기</li>
+          <li>생생한 어휘 표현 훈련</li>
+        </ul>
+      </div>
+      <div class="grade-card reveal d3" data-num="2">
+        <span class="gc-band">Level 2 · Grade 4–5</span>
+        <div class="gc-title">쓰긴 쓰는데,<br>글이 계속 단순한 학생</div>
+        <ul class="gc-list">
+          <li>짧고 단순한 문장 확장</li>
+          <li>풍부한 vocabulary 훈련</li>
+          <li>더 길고 자연스러운 문장 만들기</li>
+          <li>자기 글을 스스로 Edit 해보기</li>
+          <li>Paragraph 흐름과 연결 훈련</li>
+        </ul>
+      </div>
+      <div class="grade-card reveal d4" data-num="3">
+        <span class="gc-band">Level 3 · Grade 6–7</span>
+        <div class="gc-title">Essay는 쓰지만,<br>완성도가 부족한 학생</div>
+        <ul class="gc-list">
+          <li>더 복잡하고 자연스러운 문장 구조</li>
+          <li>논리 흐름 강화</li>
+          <li>Evidence & Reasoning 설명 깊이 훈련</li>
+          <li>Transition & academic tone 강화</li>
+          <li>더 완성도 높은 Essay Writing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ §6 REVISION FLOW ════════════ -->
+<section id="revision" class="s s--navy">
+  <div class="w">
+    <span class="eyebrow reveal">Writing Transformation 과정</span>
+    <h2 class="h2 reveal d1" style="color:var(--white);max-width:560px">
+      Revision이<br>실력의 차이를 만듭니다
+    </h2>
+    <p class="reveal d2" style="margin-top:18px;font-size:14.5px;color:rgba(255,255,255,.45);max-width:500px;line-height:1.9">
+      좋은 Essay는 처음부터 혼자 쓰는 것이 아닙니다.<br>
+      좋은 글을 분석하고, 좋은 표현과 phrase를 익히고,<br>
+      Pattern을 연습하고, Outline을 만들고,<br>
+      쓰고, 고치고, 다시 써보는 과정에서 실력이 만들어집니다.
+    </p>
+
+    <div class="flow-track reveal d3">
+      <div class="flow-item">
+        <div class="flow-num">01</div>
+        <div class="flow-en">Analyze</div>
+        <div class="flow-ko">좋은 Essay<br>분석하기</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">02</div>
+        <div class="flow-en">Pattern</div>
+        <div class="flow-ko">좋은 표현과 문장 패턴<br>반복 훈련</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">03</div>
+        <div class="flow-en">Outline</div>
+        <div class="flow-ko">구조<br>설계하기</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">04</div>
+        <div class="flow-en">Write</div>
+        <div class="flow-ko">첫 Draft<br>완성</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">05</div>
+        <div class="flow-en">Revise</div>
+        <div class="flow-ko">이유를 알고<br>스스로 수정</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">06</div>
+        <div class="flow-en">Rewrite</div>
+        <div class="flow-ko">글<br>완성</div>
+      </div>
+    </div>
+
+    <div class="flow-quote reveal d4">
+      <p>
+        "좋은 글은 처음부터 잘 쓰는 것이 아닙니다.<br>
+        좋은 Writing을 분석하고,<br>
+        고쳐보는 과정에서 만들어집니다."
+      </p>
+      <cite>— WriteUp Signature Revision Methodology</cite>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════ §8 LEVEL DEEP DIVE ════════════ -->
+<section id="grades" class="s s--navy2">
+  <div class="w">
+    <span class="eyebrow reveal">Level별 커리큘럼</span>
+    <h2 class="h2 reveal d1" style="color:var(--white);max-width:500px">
+      같은 Writing,<br>다른 접근
+    </h2>
+
+    <div class="gtab-row reveal d2">
+      <button class="gtab on" onclick="showG('g23',this)">Level 1</button>
+      <button class="gtab" onclick="showG('g45',this)">Level 2</button>
+      <button class="gtab" onclick="showG('g67',this)">Level 3</button>
+    </div>
+
+    <div class="gpanels">
+      <!-- Level 1 -->
+      <div id="gp-g23" class="gpanel on">
+        <div>
+          <div class="gp-title">표현의 씨앗을<br>심는 시간</div>
+          <p class="gp-body">
+            단순한 문장에서 벗어나, 자기 생각을 더 자연스럽게 표현하는 훈련이 시작됩니다.
+            좋은 표현을 익히고, Pattern Writing을 따라 쓰며,
+            Intro / Body / Conclusion 구조를 자연스럽게 배우게 됩니다.
+          </p>
+          <div class="gp-skills">
+            <div class="gp-skill">Sentence 구조 이해 및 확장</div>
+            <div class="gp-skill">because / but / so 반복 줄이기</div>
+            <div class="gp-skill">Pattern Writing 기초</div>
+            <div class="gp-skill">살아있는 표현과 phrase 익히기</div>
+            <div class="gp-skill">첫 Self-Edit 습관 만들기</div>
+          </div>
+        </div>
+        <div class="gp-right">
+          <span class="gp-right-label">6주 훈련 목표</span>
+          <div class="gp-goal">
+            "내 생각을 문장으로,<br>
+            문장을 Paragraph로<br>
+            스스로 완성하는 경험."
+          </div>
+          <p class="gp-note">
+            Writing이 숙제가 아닌 표현의 도구가 되는 경험을 목표로 합니다.
+            첫 단계부터 Edit의 개념을 자연스럽게 접합니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- Level 2 -->
+      <div id="gp-g45" class="gpanel">
+        <div>
+          <div class="gp-title">단순한 글에서<br>더 자연스러운 Writing으로</div>
+          <p class="gp-body">
+            짧고 단순한 문장에서 벗어나, 더 길고 자연스러운 문장을 만드는 훈련이 시작됩니다.
+            좋은 Essay를 분석하고, 자기 글을 스스로 Edit하며,
+            Paragraph 흐름을 연결하는 힘을 키웁니다.
+          </p>
+          <div class="gp-skills">
+            <div class="gp-skill">문장 확장 및 자연스러운 연결</div>
+            <div class="gp-skill">풍부한 vocabulary & phrase 훈련</div>
+            <div class="gp-skill">Essay Analysis 기초</div>
+            <div class="gp-skill">Paragraph 흐름과 구조 훈련</div>
+            <div class="gp-skill">Self-Edit & Revision 훈련</div>
+          </div>
+        </div>
+        <div class="gp-right">
+          <span class="gp-right-label">6주 훈련 목표</span>
+          <div class="gp-goal">
+            "내 글의 약한 부분을<br>
+            스스로 찾고,<br>
+            이유를 알고 고치는 경험."
+          </div>
+          <p class="gp-note">
+            선생님이 고쳐주는 글이 아닌, 내가 판단하고 수정한 글을
+            처음으로 경험하는 단계입니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- Level 3 -->
+      <div id="gp-g67" class="gpanel">
+        <div>
+          <div class="gp-title">완성도 높은 Essay,<br>더 깊고 자연스러운 Writing</div>
+          <p class="gp-body">
+            단순히 Essay를 쓰는 것을 넘어, 더 깊고 자연스러운 Writing을 만드는 단계입니다.
+            논리 흐름, Evidence & Reasoning, academic tone, 그리고 Revision까지 —
+            Writing의 완성도를 높이는 훈련이 시작됩니다.
+          </p>
+          <div class="gp-skills">
+            <div class="gp-skill">더 복잡하고 자연스러운 문장 구조</div>
+            <div class="gp-skill">Evidence & Reasoning 설명 훈련</div>
+            <div class="gp-skill">Transition & academic tone 강화</div>
+            <div class="gp-skill">Essay Analysis & Revision 심화</div>
+            <div class="gp-skill">더 완성도 높은 Essay Writing</div>
+          </div>
+        </div>
+        <div class="gp-right">
+          <span class="gp-right-label">6주 훈련 목표</span>
+          <div class="gp-goal">
+            "아이디어 구성부터<br>
+            완성된 Essay까지<br>
+            혼자 써내는 능력."
+          </div>
+          <p class="gp-note">
+            Writing 실력이 전 과목 성취에 영향을 미치는 시기.
+            단순한 Essay 완성이 아닌, 학문적 사고력과 표현력을 함께 훈련합니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ §9 PROGRAM DETAILS ════════════ -->
+<section id="details" class="s s--navy">
+  <div class="w">
+    <span class="eyebrow reveal">Program Overview</span>
+    <h2 class="h2 reveal d1" style="color:var(--white);max-width:480px">
+      WriteUp Signature<br>운영 방식
+    </h2>
+
+    <div class="details-grid reveal d2">
+      <div class="detail-item">
+        <div class="detail-val">6</div>
+        <div class="detail-label">주 집중 과정<br>Summer 2026</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-val">3</div>
+        <div class="detail-label">Writing Levels<br>Level 1 · Level 2 · Level 3</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-val">소수</div>
+        <div class="detail-label">정예 운영<br>학년별 정원 제한</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-val">100%</div>
+        <div class="detail-label">자체 제작<br>Writing Materials</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ §10 CTA ════════════ -->
+<section id="cta" class="s">
+  <div class="w">
+    <div class="cta-split">
+      <div class="cta-left reveal">
+        <span class="eyebrow cta-eyebrow">Summer 2026 · 소수정예 모집</span>
+        <h2 class="cta-h">
+          스스로 <em>Edit</em>하고<br>
+          <em>Revise</em>하는 능력.<br>
+          여기서 시작합니다.
+        </h2>
+        <ul class="cta-points">
+          <li>Level 1–3 · 단계별 소수 그룹 수업</li>
+          <li>6주 intensive program</li>
+        </ul>
+        <div class="cta-urgency">학년별 정원 제한 · 선착순 마감 · 조기 마감 가능</div>
+      </div>
+
+      <div class="reveal d2">
+        <div class="cta-contact">
+          <div class="cta-contact-title">프로그램 문의</div>
+          <div class="contact-options">
+            <button class="contact-btn contact-btn--sms"
+              onclick="openSMS()">
+              <span class="contact-icon">✉️</span>
+              <span class="contact-btn-text">
+                <span class="contact-btn-main">문자 상담</span>
+                <span class="contact-btn-sub">자녀 이름 + 학교와 학년 + 문의 내용<br>문자로 보내주시면 확인 후 연락 드립니다.</span>
+              </span>
+            </button>
+          </div>
+          <p class="cta-note">
+            상담은 무료 입니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  <div class="footer-brand">WriteUp Signature</div>
+  <div class="footer-sub">Writing &amp; Editing Intensive · Summer 2026</div>
+  <div class="footer-meta">
+    Level 1 · Level 2 · Level 3
+    <span>·</span>
+    6주 intensive program
+    <span>·</span>
+    소수정예 운영
+    <span>·</span>
+    단계별 정원 제한
+  </div>
+  <div class="footer-copy">
+    © 2026 WriteUp Signature. All Rights Reserved.
+    <br><br>
+    All curriculum systems, revision methodologies,
+    lesson structures, and branded materials are proprietary
+    to WriteUp Signature.
+  </div>
+</footer>
+
+<!-- ════════════ SCRIPTS ════════════ -->
+<script>
+/* ====================================================
+   📱 문자 상담 번호 설정
+   아래 CONTACT_PHONE 값을 실제 전화번호로 교체하세요.
+   형식 예시: '+821012345678'  (국가코드 +82 포함, 0 제외)
+   ==================================================== */
+const CONTACT_PHONE = '+821087365651'; // 문자 상담 번호
+
+function openSMS() {
+  const body = encodeURIComponent(
+    '안녕하세요.\n[학생 이름 / Grade / 학교]\nWriting Editing Intensive 프로그램 상담 문의드립니다.'
+  );
+  window.location.href = 'sms:' + CONTACT_PHONE + '?body=' + body;
+}
+
+/* ── Scroll Reveal ── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ── Grade Tabs ── */
+function showG(id, btn) {
+  document.querySelectorAll('.gpanel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.gtab').forEach(t => t.classList.remove('on'));
+  document.getElementById('gp-' + id).classList.add('on');
+  btn.classList.add('on');
+}
+
+/* ── Nav border on scroll ── */
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  navEl.style.borderBottomColor =
+    window.scrollY > 80
+      ? 'rgba(201,168,76,.32)'
+      : 'rgba(201,168,76,.18)';
+}, { passive: true });
+</script>
+</body>
+</html>
