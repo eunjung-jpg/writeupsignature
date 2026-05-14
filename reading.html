@@ -703,6 +703,42 @@ footer {
   .hamburger { display: flex; }
 }
 
+/* ── SCHEDULE SECTION ── */
+#schedule { padding: var(--s) 0; }
+.sched-intro {
+  font-family: var(--sans); font-size: clamp(15px,1.3vw,18px);
+  color: rgba(255,255,255,.55); max-width: 640px; line-height: 1.9;
+  margin-bottom: 56px;
+}
+.sched-grid {
+  display: grid; grid-template-columns: repeat(5,1fr);
+  gap: 1px; background: rgba(201,168,76,.15);
+  border: 1px solid rgba(201,168,76,.15);
+}
+.sched-card {
+  background: var(--navy-2); padding: 32px 24px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.sched-label {
+  font-family: var(--label); font-size: 9px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--gold);
+}
+.sched-value {
+  font-family: var(--serif-ko); font-size: clamp(14px,1.3vw,16px);
+  font-weight: 600; color: var(--white); line-height: 1.6;
+}
+.sched-note {
+  font-family: var(--sans); font-size: 12px;
+  color: rgba(255,255,255,.32); line-height: 1.6; margin-top: 4px;
+}
+@media (max-width: 820px) {
+  .sched-grid { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 560px) {
+  .sched-grid { grid-template-columns: 1fr; }
+  .sched-card { padding: 24px 20px; }
+}
+
 /* ── HAMBURGER ── */
 .hamburger {
   display: none; flex-direction: column; justify-content: center; gap: 5px;
@@ -1170,7 +1206,42 @@ footer {
   </div>
 </section>
 
-<!-- ══ §11 CTA  (black) ═══════════════════════ -->
+<!-- ══ §11 SCHEDULE ═══════════════════════ -->
+<section id="schedule" class="navy2">
+  <div class="w">
+    <span class="eye eye--gold r">Summer Intensive Schedule</span>
+    <h2 class="h2 r d1" style="margin-bottom:28px;">Program Schedule</h2>
+    <p class="sched-intro r d2">
+      6월 29일부터 8월 7일까지, Writing과 Reading을 함께 훈련하는 주 4회 집중 과정입니다.<br>
+      Essay Editing Intensive 2회와 Structured Reading Intensive 2회를 병행합니다.
+    </p>
+    <div class="sched-grid r d3">
+      <div class="sched-card">
+        <span class="sched-label">기간</span>
+        <span class="sched-value">6월 29일 – 8월 7일</span>
+      </div>
+      <div class="sched-card">
+        <span class="sched-label">주 4회</span>
+        <span class="sched-value">Essay Editing Intensive 2회<br>Structured Reading Intensive 2회</span>
+      </div>
+      <div class="sched-card">
+        <span class="sched-label">프로그램 시간</span>
+        <span class="sched-value">각 프로그램<br>2시간 진행</span>
+      </div>
+      <div class="sched-card">
+        <span class="sched-label">요일</span>
+        <span class="sched-value">월 · 화 · 목 · 금</span>
+      </div>
+      <div class="sched-card">
+        <span class="sched-label">등록 마감</span>
+        <span class="sched-value">5월 30일</span>
+        <span class="sched-note">소수 정원으로 운영됩니다.<br>정원 마감 시 등록이 종료됩니다.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ §12 CTA  (black) ═══════════════════════ -->
 <section id="cta">
   <div class="w">
     <div class="cta-layout">
