@@ -698,9 +698,6 @@ footer {
   .contact-box     { padding: 30px 22px; }
   .hero-verbs      { gap: 4px; }
   #hero::after     { display: none; }
-  .nav-a { display: none; }
-  .nav-btn { display: none; }
-  .hamburger { display: flex; }
 }
 
 /* ── SCHEDULE SECTION ── */
@@ -775,6 +772,12 @@ footer {
   border: none; cursor: pointer; text-align: center; transition: background .2s; display: block;
 }
 .mob-cta:hover { background: var(--red-l); }
+
+@media (max-width: 560px) {
+  .nav-a   { display: none; }
+  .nav-btn { display: none; }
+  .hamburger { display: flex; }
+}
 </style>
 </head>
 <body>

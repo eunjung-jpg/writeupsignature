@@ -669,7 +669,6 @@ footer {
   #hero::after { display: none; }
   .nav-link { display: none; }
   .nav-cta { display: none; }
-  .hamburger { display: flex; }
 }
 
 /* ── SCHEDULE SECTION ── */
@@ -743,6 +742,12 @@ footer {
   border: none; cursor: pointer; text-align: center; transition: background .2s; display: block;
 }
 .mob-cta:hover { background: var(--gold-l); }
+
+@media (max-width: 560px) {
+  .nav-link { display: none; }
+  .nav-cta  { display: none; }
+  .hamburger { display: flex; }
+}
 </style>
 </head>
 <body>
