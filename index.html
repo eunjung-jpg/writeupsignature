@@ -808,20 +808,47 @@ footer {
 #methodology .pillars { background: rgba(0,0,0,.04); }
 #methodology .pillar { background: rgba(0,0,0,.02); }
 #methodology .pillar:hover { background: rgba(0,0,0,.04); }
-#methodology h2 { color: var(--deep); }
+#methodology h2,
+#methodology .h2 { color: var(--deep) !important; }
+#methodology .s-label { color: var(--gold) !important; }
 #methodology .pillar-idx { color: rgba(201,168,76,.6); }
 #methodology .pillar-word { color: var(--deep); }
 #methodology .pillar-body { color: var(--stone); }
 #methodology .pillar-body strong { color: var(--navy); }
 #methodology .pillar ul li { color: var(--stone); }
 
+/* ── §7 GRADES — cream override ── */
+#grades h2,
+#grades .h2           { color: var(--deep) !important; }
+#grades .gtab         { color: rgba(15,22,32,.35); }
+#grades .gtab:hover:not(.on) { color: rgba(15,22,32,.6); }
+#grades .gtab-row     { border-bottom-color: rgba(201,168,76,.25); }
+#grades .gp-title     { color: var(--deep); }
+#grades .gp-body      { color: var(--stone); }
+#grades .gp-skill     { color: var(--navy); }
+#grades .gp-right     { border-left-color: rgba(201,168,76,.2); }
+#grades .gp-goal      { color: var(--deep); }
+#grades .gp-note      { color: var(--stone); }
+
+/* ── §10 SCHEDULE — cream override ── */
+#schedule h2,
+#schedule .h2         { color: var(--deep) !important; }
+#schedule .rule       { background: var(--gold); }
+#schedule .sched-intro { color: var(--stone); }
+#schedule .sched-grid  { background: rgba(201,168,76,.12); }
+#schedule .sched-card  { background: var(--cream); }
+#schedule .sched-value { color: var(--deep); }
+#schedule .sched-note  { color: var(--stone); }
+
 /* ── §6 REVISION FLOW — cream override ── */
-#revision h2 { color: var(--deep); }
+#revision h2,
+#revision .h2 { color: var(--deep) !important; }
+#revision p.reveal { color: var(--stone) !important; }
 #revision .flow-num { background: var(--white); border-color: rgba(201,168,76,.5); }
 #revision .flow-en { color: var(--navy); }
 #revision .flow-ko { color: var(--stone); }
 #revision .flow-quote { background: rgba(201,168,76,.06); }
-#revision .flow-quote p { color: var(--deep); }
+#revision .flow-quote p { color: var(--deep) !important; }
 #revision .flow-quote cite { color: var(--stone); }
 </style>
 </head>
@@ -1145,7 +1172,7 @@ footer {
 
 
 <!-- ════════════ §8 LEVEL DEEP DIVE ════════════ -->
-<section id="grades" class="s s--navy2">
+<section id="grades" class="s s--cream">
   <div class="w">
     <span class="eyebrow reveal">Level별 커리큘럼</span>
     <h2 class="h2 reveal d1" style="color:var(--white);max-width:500px">
@@ -1298,7 +1325,7 @@ footer {
 </section>
 
 <!-- ════════════ §11 SCHEDULE ════════════ -->
-<section id="schedule" class="s s--navy2">
+<section id="schedule" class="s s--cream">
   <div class="w">
     <span class="eyebrow reveal">Summer Intensive Schedule</span>
     <div class="rule reveal d1"></div>
