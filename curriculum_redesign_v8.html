@@ -144,6 +144,9 @@
   .tl-item:nth-child(4) .tl-dot { background: var(--red); color: #fff; box-shadow: 0 0 0 2px var(--red); }
   .tl-date { font-size: 12px; color: var(--gold); font-weight: 800; text-align: center; margin-bottom: 2px; }
   .tl-label { font-size: 11px; font-weight: 700; color: var(--navy); text-align: center; }
+  .tl-step-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; color: rgba(197,151,58,.8); text-transform: uppercase; margin-bottom: 2px; text-align: center; }
+  .tl-content { display: flex; flex-direction: column; align-items: center; }
+  .tl-desc { font-size: 10px; color: rgba(255,255,255,.55); text-align: center; margin-top: 2px; word-break: keep-all; }
 
   /* ─── PIE SYSTEM ─── */
   .pie-section { background: var(--navy); }
@@ -204,11 +207,14 @@
   .starter-kit .sec-label { color: var(--gold); }
   .starter-kit .sec-title { color: #fff; }
   .starter-kit .sec-sub { color: rgba(255,255,255,.45); }
-  .kit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .kit-card { background: rgba(255,255,255,.05); border: 1px solid rgba(197,151,58,.22); border-radius: 12px; padding: 18px; display: flex; gap: 13px; align-items: flex-start; }
-  .kit-icon { width: 40px; height: 40px; background: rgba(197,151,58,.14); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+  .kit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .kit-card { background: rgba(255,255,255,.05); border: 1px solid rgba(197,151,58,.22); border-radius: 12px; padding: 14px 16px; display: flex; gap: 13px; align-items: flex-start; }
+  .kit-icon { width: 40px; height: 40px; background: rgba(197,151,58,.14); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
   .kit-name { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 3px; }
   .kit-desc { font-size: 11px; color: rgba(255,255,255,.45); line-height: 1.5; }
+  .kit-text { flex: 1; min-width: 0; }
+  .kit-name { word-break: keep-all; }
+  .kit-desc { word-break: keep-all; overflow-wrap: break-word; }
 
   /* ─── OUTCOMES ─── */
   .outcomes { background: #fff; }
@@ -287,7 +293,31 @@
     .target-row, .timeline { flex-direction: column; gap: 12px; }
     .timeline::before { display: none; }
     .target-row { max-width: 100%; }
-    .kit-grid { grid-template-columns: 1fr 1fr; }
+    .kit-grid { grid-template-columns: 1fr; }
+
+    /* ── Dual-track curriculum ── */
+    .dual-track-grid { grid-template-columns: 1fr; gap: 16px; }
+    .track-col { width: 100%; }
+    .track-title { font-size: 12px; }
+    .week-card { padding: 14px 16px; }
+    .week-title { font-size: 14px; }
+    .week-en { font-size: 10px; }
+    .week-header { flex-wrap: wrap; gap: 4px; }
+    .week-pil { font-size: 9px; }
+    .tags { gap: 4px; }
+    .tag { font-size: 9px; padding: 2px 7px; }
+    /* ── Korean word-break fix ── */
+    .week-title, .week-en, .kit-name, .kit-desc, .tl-label, .tl-date, .sec-title, .sec-sub { word-break: keep-all; overflow-wrap: break-word; }
+    /* ── Mock Test: horizontal timeline → vertical step cards ── */
+    .timeline { flex-direction: column; gap: 10px; padding-top: 0; }
+    .timeline::before { display: none; }
+    .tl-item { flex-direction: row; align-items: flex-start; gap: 14px; background: rgba(255,255,255,.06); border: 1px solid rgba(197,151,58,.2); border-radius: 10px; padding: 14px 16px; width: 100%; box-sizing: border-box; }
+    .tl-dot { width: 30px; height: 30px; font-size: 11px; flex-shrink: 0; margin-bottom: 0; }
+    .tl-date { text-align: left; font-size: 11px; margin-bottom: 2px; }
+    .tl-label { text-align: left; font-size: 13px; color: var(--navy); }
+    .tl-step-label { display: block; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; color: rgba(197,151,58,.7); text-transform: uppercase; margin-bottom: 4px; }
+  .tl-content { align-items: flex-start; }
+  .tl-desc { font-size: 10px; color: rgba(255,255,255,.55); text-align: left; margin-top: 2px; word-break: keep-all; }
   }
 
   /* ─── SMS BUTTON ─── */
@@ -384,7 +414,7 @@
 <section class="hero">
   <div class="hero-top">
     <div class="logo-wrap">
-      <div class="logo-badge"><div style="text-align:center;line-height:1.1"><div class="logo-write">WRITE</div><div class="logo-up">UP</div></div></div><span class="logo-sig">SIGNATURE</span>
+      <img class="site-logo" src="WRITEUP_LOGO.png" alt="WriteUp Signature Logo" style="height:44px;width:auto;">
     </div>
     <div class="date-pill">6월 29일 - 8월 7일 &nbsp;·&nbsp; 6주 · 매일 3시간</div>
   </div>
@@ -489,10 +519,42 @@
   <div class="sec-sub">4회 테스트로 점수 변화 추적 · 개인 오답 패턴 분석</div>
   <div class="pre-reg-notice">📌 6월 6일 사전 Mock Test 전 사전 등록 필수</div>
   <div class="timeline">
-    <div class="tl-item"><div class="tl-dot">1</div><div class="tl-date">6월 6일</div><div class="tl-label">사전 진단<br>1st Mock Test</div></div>
-    <div class="tl-item"><div class="tl-dot">2</div><div class="tl-date">7월 1일</div><div class="tl-label">2nd Mock Test</div></div>
-    <div class="tl-item"><div class="tl-dot">3</div><div class="tl-date">7월 15일</div><div class="tl-label">3rd Mock Test</div></div>
-    <div class="tl-item"><div class="tl-dot">4</div><div class="tl-date">7월 29일</div><div class="tl-label">4th Mock Test</div></div>
+    <div class="tl-item">
+      <div class="tl-dot">1</div>
+      <div class="tl-content">
+        <div class="tl-step-label">STEP 1</div>
+        <div class="tl-date">6월 6일</div>
+        <div class="tl-label">사전 진단 Mock Test</div>
+        <div class="tl-desc">현재 유형 및 약점 분석</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">2</div>
+      <div class="tl-content">
+        <div class="tl-step-label">STEP 2</div>
+        <div class="tl-date">7월 1일</div>
+        <div class="tl-label">중간 점검 Test</div>
+        <div class="tl-desc">오답 패턴 및 시간 관리 분석</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">3</div>
+      <div class="tl-content">
+        <div class="tl-step-label">STEP 3</div>
+        <div class="tl-date">7월 15일</div>
+        <div class="tl-label">실전 적용 Test</div>
+        <div class="tl-desc">Best Answer 판단 훈련 적용</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">4</div>
+      <div class="tl-content">
+        <div class="tl-step-label">STEP 4</div>
+        <div class="tl-date">7월 29일</div>
+        <div class="tl-label">최종 실전 Test</div>
+        <div class="tl-desc">최종 점수 변화 및 유형 안정화 확인</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -560,17 +622,46 @@
 
 <!-- ═══ STARTER KIT ═══ -->
 <section class="section starter-kit">
-  <div class="sec-label">Included Performance Toolkit</div>
+  <div class="sec-label">PSAT Starter Kit</div>
   <div class="sec-title">수강생 전용 제공자료</div>
   <div class="sec-sub">6주 내내 함께 사용하는 핵심 학습 도구</div>
   <div class="kit-grid">
-    <div class="kit-card"><div class="kit-icon">📖</div><div><div class="kit-name">PSAT Trap Analysis Sheet</div><div class="kit-desc">자주 틀리는 함정 보기 패턴 정리</div></div></div>
-    <div class="kit-card"><div class="kit-icon">📋</div><div><div class="kit-name">Best Answer Cheat Sheet</div><div class="kit-desc">PIE 유형별 핵심 규칙 압축 정리</div></div></div>
-    <div class="kit-card"><div class="kit-icon">📝</div><div><div class="kit-name">Collocation &amp; Word Choice Pack</div><div class="kit-desc">PSAT/SAT에 자주 등장하는 표현과 어휘 조합 정리</div></div></div>
-    <div class="kit-card"><div class="kit-icon">📓</div><div><div class="kit-name">Error Log System</div><div class="kit-desc">틀린 문제의 원인과 반복 패턴 분석</div></div></div>
-    <div class="kit-card"><div class="kit-icon">🗒️</div><div><div class="kit-name">Mini Diagnostic Test</div><div class="kit-desc">문제 접근 방식과 시험 전략 정리</div></div></div>
+    <div class="kit-card">
+      <div class="kit-icon">📖</div>
+      <div class="kit-text">
+        <div class="kit-name">Collocation Pack</div>
+        <div class="kit-desc">PSAT/SAT에 자주 등장하는 표현과 어휘 조합 정리</div>
+      </div>
+    </div>
+    <div class="kit-card">
+      <div class="kit-icon">📋</div>
+      <div class="kit-text">
+        <div class="kit-name">Cheat Sheet</div>
+        <div class="kit-desc">PSAT 핵심 문법·유형 압축 정리</div>
+      </div>
+    </div>
+    <div class="kit-card">
+      <div class="kit-icon">📝</div>
+      <div class="kit-text">
+        <div class="kit-name">Trap Sheet</div>
+        <div class="kit-desc">자주 틀리는 함정 보기 패턴 정리</div>
+      </div>
+    </div>
+    <div class="kit-card">
+      <div class="kit-icon">📓</div>
+      <div class="kit-text">
+        <div class="kit-name">오답 분석 노트</div>
+        <div class="kit-desc">틀린 문제의 원인과 반복 패턴 분석</div>
+      </div>
+    </div>
+    <div class="kit-card">
+      <div class="kit-icon">🗒️</div>
+      <div class="kit-text">
+        <div class="kit-name">학습 전략 노트</div>
+        <div class="kit-desc">문제 접근 방식과 시험 전략 정리</div>
+      </div>
+    </div>
   </div>
-  <p style="margin-top:18px;font-size:12px;font-weight:700;color:rgba(197,151,58,.7);letter-spacing:.3px;">이것은 요약 핸드아웃이 아닙니다. PSAT 퍼포먼스 훈련 시스템입니다.</p>
 </section>
 
 <!-- ═══ OUTCOMES ═══ -->
@@ -631,7 +722,7 @@
 
 <!-- ═══ FOOTER ═══ -->
 <footer>
-  <div style="display:flex;align-items:center;gap:8px;opacity:.85"><div class="logo-badge" style="width:36px;height:36px;flex-shrink:0"><div style="text-align:center;line-height:1.1"><div class="logo-write" style="font-size:9px">WRITE</div><div class="logo-up" style="font-size:9px">UP</div></div></div><span class="logo-sig">SIGNATURE</span></div>
+  <img class="site-logo" src="WRITEUP_LOGO.png" alt="WriteUp Signature Logo" style="height:36px;width:auto;opacity:.85;">
   <div class="footer-copy">© 2026 WriteUp Signature. All rights reserved.</div>
 </footer>
 
