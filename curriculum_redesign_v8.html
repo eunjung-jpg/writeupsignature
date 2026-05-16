@@ -278,10 +278,16 @@
 
   @media (max-width: 768px) {
     .hero-main-title { font-size: 28px; }
+    .hero-opt-title { font-size: 18px; }
+    .hero-top { flex-wrap: wrap; gap: 6px; padding-top: 16px; }
+    .date-pill { font-size: 11px; padding: 5px 12px; }
     .hero-body, .hero-top, .section, .why-block { padding-left: 24px; padding-right: 24px; }
     .sys-bar, .flow-cards, .pie-grid, .weeks-grid, .outcomes-grid, .kit-grid { grid-template-columns: 1fr; flex-direction: column; }
+    .flow-cards { flex-wrap: wrap; }
     .target-row, .timeline { flex-direction: column; gap: 12px; }
     .timeline::before { display: none; }
+    .target-row { max-width: 100%; }
+    .kit-grid { grid-template-columns: 1fr 1fr; }
   }
 
   /* ─── SMS BUTTON ─── */
