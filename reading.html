@@ -124,6 +124,14 @@ nav {
 }
 .nav-a:hover { color: rgba(255,255,255,.8); }
 .nav-a--back::before { content: '← '; }
+.nav-a--psat { color: rgba(201,168,76,.75); position: relative; }
+.nav-a--psat::after {
+  content: 'NEW'; font-size: 7px; font-weight: 800; letter-spacing: .1em;
+  background: var(--gold); color: var(--black);
+  padding: 1px 4px; border-radius: 2px;
+  position: absolute; top: -6px; right: -24px;
+}
+.nav-a--psat:hover { color: var(--gold); }
 .nav-btn {
   font-family: var(--sans); font-size: 12px; font-weight: 700;
   background: var(--red); color: var(--white);
@@ -772,6 +780,14 @@ footer {
 .mob-link:hover { color: var(--white); }
 .mob-link--writing { color: rgba(201,168,76,.75); }
 .mob-link--writing:hover { color: rgba(201,168,76,1); }
+.mob-link--psat { color: rgba(201,168,76,.75); }
+.mob-link--psat:hover { color: var(--gold); }
+.mob-divider {
+  font-family: var(--label); font-size: 8px; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(255,255,255,.18); padding: 20px 0 4px;
+  border-bottom: none !important;
+}
 .mob-cta {
   margin-top: 32px; font-family: var(--sans); font-size: 14px; font-weight: 700;
   background: var(--red); color: var(--white); padding: 16px 24px;
@@ -853,6 +869,7 @@ footer {
     </div>
     <div class="nav-r">
       <a href="/" class="nav-a nav-a--back">Writing Intensive</a>
+      <a href="/psat" class="nav-a nav-a--psat">PSAT 8/9</a>
       <a href="#cta" class="nav-btn">프로그램 문의</a>
       <button class="hamburger" id="ham" aria-label="메뉴 열기">
         <span></span><span></span><span></span>
@@ -862,10 +879,12 @@ footer {
 </nav>
 
 <div class="mob-menu" id="mob-menu">
-  <a href="/" class="mob-link mob-link--writing">← Writing Intensive</a>
   <a href="#reading-process" class="mob-link">Reading Process</a>
   <a href="#schedule" class="mob-link">Schedule</a>
   <a href="#faq" class="mob-link">FAQ</a>
+  <span class="mob-divider">Other Programs</span>
+  <a href="/" class="mob-link mob-link--writing">← Writing Intensive</a>
+  <a href="/psat" class="mob-link mob-link--psat">→ PSAT 8/9 시험대비</a>
   <button class="mob-cta" onclick="closeMob();openSMS()">프로그램 문의</button>
 </div>
 
@@ -1274,12 +1293,22 @@ footer {
 <!-- ══ §11 CROSS PROMO ═══════════════════════ -->
 <section style="padding: var(--s) 0; background: var(--black);">
   <div class="w">
-    <div class="xpromo r">
-      <div>
-        <span class="xpromo-eyebrow">주 4일 완성 과정</span>
-        <div class="xpromo-title">Reading 2일 + Writing 2일로 구성됩니다</div>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="xpromo r">
+        <div>
+          <span class="xpromo-eyebrow">주 4일 완성 과정</span>
+          <div class="xpromo-title">Reading 2일 + Writing 2일로 구성됩니다</div>
+        </div>
+        <a href="/" class="xpromo-btn">Writing Intensive 커리큘럼 보기 →</a>
       </div>
-      <a href="/" class="xpromo-btn">Writing Intensive 커리큘럼 보기 →</a>
+      <div class="xpromo r" style="background: rgba(201,168,76,.08); border-color: rgba(201,168,76,.3);">
+        <div>
+          <span class="xpromo-eyebrow">시험 대비 특별 과정</span>
+          <div class="xpromo-title">PSAT 8/9 시험대비 프로그램</div>
+          <div class="xpromo-sub">Reading &amp; Writing 통합 PSAT 준비 과정</div>
+        </div>
+        <a href="/psat" class="xpromo-btn">PSAT 8/9 프로그램 보기 →</a>
+      </div>
     </div>
   </div>
 </section>
