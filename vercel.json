@@ -1,7 +1,8 @@
 {
   "rewrites": [
     { "source": "/reading", "destination": "/reading.html" },
-    { "source": "/writing", "destination": "/index.html" }
+    { "source": "/writing", "destination": "/index.html" },
+    { "source": "/psat", "destination": "/curriculum_redesign_v8.html" }
   ],
   "headers": [
     {
